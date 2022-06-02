@@ -15,7 +15,8 @@ https://sylabs.io/guides/3.0/user-guide/installation.html
 Once those two dependencies have been installed, clone the directory. 
 
 ```
-git clone https://github.com/metagenlab/MASRES.git
+git clone -b master https://github.com/metagenlab/MASRES.git
+
 ```
 
 After this, you will need to download the database for Homopolish.
