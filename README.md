@@ -1,4 +1,4 @@
-##FlexAMR
+### FlexAMR
 
 FlexAMR is a diagnostic sequencing pipeline that can provide resistance gene predictions from either raw Nanopore reads, Illumina reads or both.
 
@@ -35,10 +35,10 @@ FlexAMR has three modes "short" for short read assemblies using Illumina only, "
 "hybrid" for both Illumina and Oxford Nanopore. Keep in mind that each mode has its own dedicated sample csv format. Some examples of sample csv files 
 are provided, all that is required is to replace the names of the samples and the directories of the raw reads.
 
-#Overview of workflow
+## Overview of workflow
 
 
-#Example of command:
+## Example of command:
 
 To get help documentation:
 
