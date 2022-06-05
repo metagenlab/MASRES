@@ -34,8 +34,8 @@ if(params.mode == 'long'){
     			.map{ row-> tuple(row.sampleId, file(row.readsONT)) }
 			.view()
     			
-	db_directory = Channel
-			.fromPath(params.db_dir)
+	homopolish_db = Channel
+			.fromPath(params.homopolish_db)
 			.view()
 	}
 
@@ -54,8 +54,8 @@ if(params.mode == 'hybrid'){
                         .map{ row-> tuple(row.sampleId, file(row.readsONT)) }
                         .view()
 
-	db_directory = Channel
-                        .fromPath(params.db_dir)
+	homopolish_db = Channel
+                        .fromPath(params.homopolish_db)
                         .view()
 
 
@@ -67,23 +67,36 @@ if(params.mode == 'hybrid'){
 
         }
 
+bakta_db_dir = Channel
+                        .fromPath(params.bakta_db)
+                        .view()
+platon_db_dir = Channel
+			.fromPath(params.platon_db)
+			.view()
 
-include { ONT_ASS   } from '../subworkflows/ONT_assembly'
-include { SHORT_ASS } from '../subworkflows/SHORT'
-include { HYBRID    } from '../subworkflows/HYBRID'
 
+include { LONG   } from '../subworkflows/LONG'
+include { SHORT  } from '../subworkflows/SHORT'
+include { HYBRID } from '../subworkflows/HYBRID'
+include { AMR    } from '../subworkflows/AMR'
 workflow flexAMR {
 
 	if (params.mode == 'long'){
-        ONT_ASS (input_files, db_directory)
+        LONG (input_files, homopolish_db)
+	ASSEMBLY_OUTPUT = LONG.out.assembly_out
 	}
 
 	if (params.mode == 'short'){
-	SHORT_ASS (input_files)
+	SHORT (input_files)
+	ASSEMBLY_OUTPUT = SHORT.out.assembly_out
 	}
 
 	if (params.mode == 'hybrid'){
-	HYBRID(input_long, db_directory, input_short)
+	HYBRID(input_long, homopolish_db, input_short)
+	ASSEMBLY_OUTPUT = HYBRID.out.assembly_out
 	}
+	
+	AMR(ASSEMBLY_OUTPUT, bakta_db_dir, platon_db_dir)
 }
+
 

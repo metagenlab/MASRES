@@ -5,10 +5,11 @@ nextflow.enable.dsl = 2
 
 
 
-include { flexAMR } from './workflows/flexAMR'
+include { flexAMR        } from './workflows/flexAMR'
 
 workflow {
 	flexAMR ()
+	
 }
 
 

@@ -6,12 +6,20 @@ process MINIMAP2 {
         tag "$ID"
 
         input:
+	val(mode)
         tuple val(ID), file(assembly)
         tuple val(ID), file(read1), file(read2)
 
 	output:
-	tuple val(ID), file(alignment), emit: minimap2_alignment
+	tuple val(ID), file("./aln.sam"), emit: minimap2_alignment
 
 	script:
-	"""
-	minimap2 -ax ${params.mapping_mode_depth} ref.fa read1.fa read2.fa > aln.sam
+	if( mode == 'sr')
+		"""
+		minimap2 -ax ${mode} ${assembly} ${read1} ${read2} > aln.sam
+		"""
+	else
+		"""
+		minimap2 -ax ${mode} ${assembly} ${read1} > aln.sam
+		"""
+}
