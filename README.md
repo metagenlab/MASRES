@@ -37,6 +37,7 @@ FlexAMR has three modes "short" for short read assemblies using Illumina only, "
 are provided, all that is required is to replace the names of the samples and the directories of the raw reads.
 
 ## Overview of workflow
+![Untitled Diagram drawio (4)](https://user-images.githubusercontent.com/70012389/172053345-35fc312a-5ada-4cab-8a62-9aa6ad447d02.png)
 
 
 ## Example of command:
