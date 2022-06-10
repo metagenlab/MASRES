@@ -1,5 +1,5 @@
-ChlamDB documentation
-=====================
+Diag Pipeline documentation
+===========================
 
 .. note:: Problems and errors can be announced on `the github page`_ of the website
 
