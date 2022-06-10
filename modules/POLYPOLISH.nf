@@ -6,6 +6,7 @@ process POLYPOLISH {
 	tag "$ID"
 
 	publishDir "${params.outdir}/${ID}/04_hybrid_assembly/", mode: 'copy'
+		
 
 	input:
 	tuple val(ID), file(assembly), file(alignments_1), file(alignments_2)

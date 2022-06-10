@@ -74,6 +74,10 @@ platon_db_dir = Channel
 			.fromPath(params.platon_db)
 			.view()
 
+mash_db_dir = Channel
+			.fromPath(params.mash_db)
+			.view()
+
 
 include { LONG   } from '../subworkflows/LONG'
 include { SHORT  } from '../subworkflows/SHORT'
@@ -96,7 +100,7 @@ workflow flexAMR {
 	ASSEMBLY_OUTPUT = HYBRID.out.assembly_out
 	}
 	
-	AMR(ASSEMBLY_OUTPUT, bakta_db_dir, platon_db_dir)
+	AMR(ASSEMBLY_OUTPUT, bakta_db_dir, platon_db_dir, mash_db_dir)
 }
 
 

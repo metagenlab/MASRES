@@ -22,7 +22,7 @@ workflow SHORT {
 
 	MINIMAP2(minimap2_mode, SPADES.out.contigs, TRIMMOMATIC.out.paired)
 	
-	SAMTOOLS(MINIMAP2.out.minimap2_alignment)
+	SAMTOOLS(minimap2_mode, MINIMAP2.out.minimap2_alignment)
 
 	MERGED_OUTPUT_CHANNEL = SPADES.out.contigs.join(SAMTOOLS.out.samtools_out).view()		
 

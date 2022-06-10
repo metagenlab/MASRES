@@ -8,6 +8,7 @@ include{ MEDAKA     } from '../modules/MEDAKA'
 include{ HOMOPOLISH } from '../modules/HOMOPOLISH'
 include{ MINIMAP2   } from '../modules/MINIMAP2'
 include{ SAMTOOLS   } from '../modules/SAMTOOLS'
+include{ ASSEMBLY_HEADER_FORMAT} from '../modules/ASSEMBLY_HEADER_FORMAT'
 
 workflow LONG {
 	take:
@@ -28,18 +29,20 @@ workflow LONG {
 	
 	HOMOPOLISH(MEDAKA.out.medaka_polish, homopolish_db)
 	
-	//adding second unused channel
+	ASSEMBLY_HEADER_FORMAT(HOMOPOLISH.out.homopolished)
+	
+	//adding second unused channel since only one set of reads
 	input_files
                 .join(FLYE.out.assembly)
                 .set { ch_for_minimap2 }
 
 	minimap2_mode = "map-ont"
 
-	MINIMAP2(minimap2_mode, HOMOPOLISH.out.homopolished, ch_for_minimap2)	
+	MINIMAP2(minimap2_mode, ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, ch_for_minimap2)	
 	
-	SAMTOOLS(MINIMAP2.out.minimap2_alignment)
+	SAMTOOLS(minimap2_mode, MINIMAP2.out.minimap2_alignment)
 
-	MERGED_OUTPUT_CHANNEL = HOMOPOLISH.out.homopolished.join(SAMTOOLS.out.samtools_out).view()
+	MERGED_OUTPUT_CHANNEL = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.join(SAMTOOLS.out.samtools_out)
 
 	emit:
 	assembly_out      = MERGED_OUTPUT_CHANNEL

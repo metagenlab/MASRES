@@ -22,8 +22,8 @@ process BAKTA {
 	tuple val(ID), path("./05_annotation/${ID}.ffn"), emit: ffn
 	tuple val(ID), path("./05_annotation/${ID}.fna"), emit: fna
 
-	shell:
+	script:
 	"""
-	bakta --db ${db} --output 05_annotation --prefix ${ID} --locus-tag 'bakta' --complete ${assembly}
+	bakta --db ${db} --output 05_annotation --prefix ${ID} --locus-tag 'bakta' --threads ${params.threads} --complete ${assembly}
 	"""
 }

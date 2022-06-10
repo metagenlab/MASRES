@@ -9,6 +9,7 @@ include{ FASTQC      } from '../modules/FASTQC'
 include{ BWA         } from '../modules/BWA'
 include{ POLYPOLISH  } from '../modules/POLYPOLISH'
 include{ HYB_COVERAGE} from '../modules/HYB_COV'
+include{ ASSEMBLY_HEADER_FORMAT       } from '../modules/ASSEMBLY_HEADER_FORMAT'
 include{ MINIMAP2 as MINIMAP2_SHORT   } from '../modules/MINIMAP2'
 include{ MINIMAP2 as MINIMAP2_LONG    } from '../modules/MINIMAP2'
 include{ SAMTOOLS as SAMTOOLS_SHORT   } from '../modules/SAMTOOLS'
@@ -42,9 +43,11 @@ workflow HYBRID {
 
 	POLYPOLISH(BWA.out.bwa_aligned)
 	
+	ASSEMBLY_HEADER_FORMAT(POLYPOLISH.out.hybrid_assembly)
+
 	//Mapping short and long reads to assembly
 	short_mode = "sr"
-	MINIMAP2_SHORT(short_mode, POLYPOLISH.out.hybrid_assembly, TRIMMOMATIC.out.paired)
+	MINIMAP2_SHORT(short_mode, ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, TRIMMOMATIC.out.paired)
 	
 
 	long_mode = "map-ont"
@@ -54,7 +57,7 @@ workflow HYBRID {
                 .join(FLYE.out.assembly)
                 .set { ch_for_minimap2_long }
 
-	MINIMAP2_LONG(long_mode, POLYPOLISH.out.hybrid_assembly, ch_for_minimap2_long)
+	MINIMAP2_LONG(long_mode, ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, ch_for_minimap2_long)
 	
 	//Calculating depth for short and long reads
 	sam_mode_short = "short"
@@ -65,8 +68,9 @@ workflow HYBRID {
 	//Merging depth files to get coverage of both long and short reads for each position
 
 	HYB_COVERAGE(SAMTOOLS_LONG.out.samtools_out, SAMTOOLS_SHORT.out.samtools_out)
-
-	MERGED_OUTPUT_CHANNEL = POLYPOLISH.out.hybrid_assembly.join(HYB_COVERAGE.out.hybrid_coverage).view()
+	
+	
+	MERGED_OUTPUT_CHANNEL = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.join(HYB_COVERAGE.out.hybrid_coverage)
 	
 	emit:
 	assembly_out     = MERGED_OUTPUT_CHANNEL
