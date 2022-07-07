@@ -1,10 +1,9 @@
 // Import modules
 
-include{ TRIMMOMATIC   } from '../modules/local/TRIMMOMATIC'
 include{ SPADES        } from '../modules/nf-core/modules/spades/main'
 include{ FASTQC        } from '../modules/nf-core/modules/fastqc/main'
 include{ FASTP         } from '../modules/nf-core/modules/fastp/main'
-include{ MINIMAP2      } from '../modules/local/MINIMAP2'
+include{ DEPTH         } from '../modules/local/DEPTH'
 include{ CONTIG_FILTERING } from '../modules/local/CONTIG_FILTERING'
 
 
@@ -13,24 +12,32 @@ workflow SHORT {
 	input_files
 	
 	main:
+
+	// Trim Illumina reads with fastp
 	
 	FASTP(input_files, false, false)
 
+	// QC post trimming with FastQC
+
 	FASTQC(FASTP.out.reads)
 
-	ch_spades = FASTP.out.reads.map { meta,reads -> [meta, reads, [], [] ]}
-		.view()
+	// Creating channel for spades and short read assembly
 
+	ch_spades = FASTP.out.reads.map { meta,reads -> [meta, reads, [], [] ]}
 
 	SPADES(ch_spades, [])
+	
+	// Filtering short contigs
 
 	CONTIG_FILTERING(SPADES.out.contigs)
-	
+
+	// Calculating depth for every position in assembled genome
+
 	minimap2_mode = 'sr'
 
-	MINIMAP2(minimap2_mode, CONTIG_FILTERING.out.ref_assembly, FASTP.out.reads)
+	DEPTH(minimap2_mode, CONTIG_FILTERING.out.ref_assembly, FASTP.out.reads)
 	
 	emit:
 	assembly = CONTIG_FILTERING.out.assembly
-	depth = MINIMAP2.out.depth
+	depth = DEPTH.out.depth
 }

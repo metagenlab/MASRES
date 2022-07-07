@@ -31,27 +31,24 @@ if(params.mode == 'long' || params.mode == 'hybrid'){
 
 	homopolish_db = Channel
 			.fromPath(params.homopolish_db)
-			.view()
 	}
 
 
 
 bakta_db_dir = Channel
                         .fromPath(params.bakta_db)
-                        .view()
 platon_db_dir = Channel
 			.fromPath(params.platon_db)
-			.view()
 
 mash_db_dir = Channel
 			.fromPath(params.mash_db)
-			.view()
 
 include { INPUT_CHECK } from '../subworkflows/input_check'
 include { LONG   } from '../subworkflows/LONG'
 include { SHORT  } from '../subworkflows/SHORT'
 include { HYBRID } from '../subworkflows/HYBRID'
 include { AMR    } from '../subworkflows/AMR'
+
 workflow flexAMR {
 	
 	INPUT_CHECK(params.reads_csv)

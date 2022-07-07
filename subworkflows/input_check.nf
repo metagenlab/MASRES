@@ -1,6 +1,6 @@
 //
 // Check input samplesheet and get read channels
-//
+//TAKEN FROM BACASS
 
 params.options = [:]
 

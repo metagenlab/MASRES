@@ -1,6 +1,6 @@
-//Sequence mapping using minimap2
+// Sequence mapping and depth using minimap2 and samtools
 
-process MINIMAP2 {
+process DEPTH {
         container = "https://depot.galaxyproject.org/singularity/mulled-v2-66534bcbb7031a148b13e2ad42583020b9cd25c4:1679e915ddb9d6b4abda91880c4b48857d471bd8-0"
 
         tag "$meta.id"
