@@ -1,2 +1,2 @@
-sampleId,read1,read2
-saureus_short,test_data/hybrid/saureusIllumina_1.fastq,test_data/hybrid/saureusIllumina_2.fastq
+ID,R1,R2,LongFastQ,Fast5,GenomeSize
+10227,test_data/10227_S1_L001_R1_001.fastq.gz,test_data/10227_S1_L001_R2_001.fastq.gz,NA,NA,NA

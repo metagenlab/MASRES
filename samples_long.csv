@@ -1,2 +1,2 @@
-sampleId,readsONT
-saureusONT,test_data/hybrid/saureusONT.fastq
+ID,R1,R2,LongFastQ,Fast5,GenomeSize
+saureusONT,NA,NA,test_data/hybrid/saureusONT.fastq.gz,NA,NA

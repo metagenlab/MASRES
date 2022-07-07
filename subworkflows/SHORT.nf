@@ -1,10 +1,12 @@
 // Import modules
 
-include{ TRIMMOMATIC   } from '../modules/TRIMMOMATIC'
-include{ SPADES        } from '../modules/SPADES'
-include{ FASTQC        } from '../modules/FASTQC'
-include{ MINIMAP2      } from '../modules/MINIMAP2'
-include{ SAMTOOLS      } from '../modules/SAMTOOLS'
+include{ TRIMMOMATIC   } from '../modules/local/TRIMMOMATIC'
+include{ SPADES        } from '../modules/nf-core/modules/spades/main'
+include{ FASTQC        } from '../modules/nf-core/modules/fastqc/main'
+include{ FASTP         } from '../modules/nf-core/modules/fastp/main'
+include{ MINIMAP2      } from '../modules/local/MINIMAP2'
+include{ CONTIG_FILTERING } from '../modules/local/CONTIG_FILTERING'
+
 
 workflow SHORT {
 	take:
@@ -12,20 +14,23 @@ workflow SHORT {
 	
 	main:
 	
-	TRIMMOMATIC(input_files)
+	FASTP(input_files, false, false)
+
+	FASTQC(FASTP.out.reads)
+
+	ch_spades = FASTP.out.reads.map { meta,reads -> [meta, reads, [], [] ]}
+		.view()
+
+
+	SPADES(ch_spades, [])
+
+	CONTIG_FILTERING(SPADES.out.contigs)
 	
-	FASTQC(TRIMMOMATIC.out.paired)
+	minimap2_mode = 'sr'
 
-	SPADES(TRIMMOMATIC.out.paired)
+	MINIMAP2(minimap2_mode, CONTIG_FILTERING.out.ref_assembly, FASTP.out.reads)
 	
-	minimap2_mode = "sr"	
-
-	MINIMAP2(minimap2_mode, SPADES.out.contigs, TRIMMOMATIC.out.paired)
-	
-	SAMTOOLS(minimap2_mode, MINIMAP2.out.minimap2_alignment)
-
-	MERGED_OUTPUT_CHANNEL = SPADES.out.contigs.join(SAMTOOLS.out.samtools_out).view()		
-
 	emit:
-	assembly_out      = MERGED_OUTPUT_CHANNEL
+	assembly = CONTIG_FILTERING.out.assembly
+	depth = MINIMAP2.out.depth
 }

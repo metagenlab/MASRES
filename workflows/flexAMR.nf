@@ -27,45 +27,14 @@ params.outdir = "results"
 if(!(params.mode in ['long', 'short', 'hybrid'])){
 	exit 1, 'Mode selected does not exist, only short, long and hybrid'
 	}
-if(params.mode == 'long'){
-	input_files = Channel
-    			.fromPath(params.reads_csv)
-    			.splitCsv(header:true)
-    			.map{ row-> tuple(row.sampleId, file(row.readsONT)) }
-			.view()
-    			
+if(params.mode == 'long' || params.mode == 'hybrid'){
+
 	homopolish_db = Channel
 			.fromPath(params.homopolish_db)
 			.view()
 	}
 
-if(params.mode == 'short'){
-	input_files = Channel
-    			.fromPath(params.reads_csv)
-    			.splitCsv(header:true)
-    			.map{ row-> tuple(row.sampleId, file(row.read1), file(row.read2))}
-			.view()
-	}
 
-if(params.mode == 'hybrid'){
-        input_long = Channel
-                        .fromPath(params.reads_csv)
-                        .splitCsv(header:true)
-                        .map{ row-> tuple(row.sampleId, file(row.readsONT)) }
-                        .view()
-
-	homopolish_db = Channel
-                        .fromPath(params.homopolish_db)
-                        .view()
-
-
-	input_short = Channel
-                        .fromPath(params.reads_csv)
-                        .splitCsv(header:true)
-                        .map{ row-> tuple(row.sampleId, file(row.read1), file(row.read2))}
-                        .view()
-
-        }
 
 bakta_db_dir = Channel
                         .fromPath(params.bakta_db)
@@ -78,29 +47,35 @@ mash_db_dir = Channel
 			.fromPath(params.mash_db)
 			.view()
 
-
+include { INPUT_CHECK } from '../subworkflows/input_check'
 include { LONG   } from '../subworkflows/LONG'
 include { SHORT  } from '../subworkflows/SHORT'
 include { HYBRID } from '../subworkflows/HYBRID'
 include { AMR    } from '../subworkflows/AMR'
 workflow flexAMR {
+	
+	INPUT_CHECK(params.reads_csv)
+
 
 	if (params.mode == 'long'){
-        LONG (input_files, homopolish_db)
-	ASSEMBLY_OUTPUT = LONG.out.assembly_out
+        LONG (INPUT_CHECK.out.longreads, homopolish_db)
+	ASSEMBLY_OUTPUT = LONG.out.assembly
+	DEPTH_OUTPUT = LONG.out.depth
 	}
 
 	if (params.mode == 'short'){
-	SHORT (input_files)
-	ASSEMBLY_OUTPUT = SHORT.out.assembly_out
+	SHORT (INPUT_CHECK.out.shortreads)
+	ASSEMBLY_OUTPUT = SHORT.out.assembly
+	DEPTH_OUTPUT = SHORT.out.depth
 	}
 
 	if (params.mode == 'hybrid'){
-	HYBRID(input_long, homopolish_db, input_short)
-	ASSEMBLY_OUTPUT = HYBRID.out.assembly_out
+	HYBRID(INPUT_CHECK.out.longreads, homopolish_db, INPUT_CHECK.out.shortreads)
+	ASSEMBLY_OUTPUT = HYBRID.out.assembly
+	DEPTH_OUTPUT = HYBRID.out.depth
 	}
 	
-	AMR(ASSEMBLY_OUTPUT, bakta_db_dir, platon_db_dir, mash_db_dir)
+	AMR(ASSEMBLY_OUTPUT, DEPTH_OUTPUT, bakta_db_dir, platon_db_dir, mash_db_dir)
 }
 
 

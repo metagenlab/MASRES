@@ -23,7 +23,8 @@ process SPADES {
 	set +u
 	spades.py -k 21,33,55,77,99,127 -1 ${read1} -2 ${read2} -o 01_spades --isolate --threads ${params.threads}
 	cd 01_spades
-	sed \"s/NODE_\\([0-9]\\+\\)_.*/contig_\\1/\" contigs.fasta > contigs_renamed.fasta
+	awk '/^>/{{print (NR==1)?\$0: \"\\n\" \$0;next}} {{printf \"%s\", \$0}}END{{print \"\"}}' contigs.fasta |  awk \'!/^>/ {{ next }} {{ getline seq }} length(seq) >= 500 {{ print \$0 \"\\n\" seq }}\'  > contigs_500bp.fasta
+	sed \"s/NODE_\\([0-9]\\+\\)_.*/contig_\\1/\" contigs_500bp.fasta > contigs_renamed.fasta
 	set -u
 	"""
 }

@@ -3,15 +3,14 @@
 process HYB_COVERAGE {
 	container = "docker://ubuntu"
 
-	tag "$ID"
+	tag "$meta.id"
 
 	input:
-	tuple val(ID), file(Depth_long)
-	tuple val(ID), file(Depth_short)
+	tuple val(meta), file(Depth_long)
+	tuple val(meta), file(Depth_short)
 
 	output:
-	val ID, emit: ID
-	tuple val(ID), file("./merged_coverage.depth"), emit: hybrid_coverage
+	tuple val(meta.id), file("./merged_coverage.depth"), emit: hybrid_coverage
 
 	script:
 	"""

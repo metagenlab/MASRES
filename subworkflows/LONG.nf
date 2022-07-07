@@ -1,14 +1,13 @@
 
-
 // Import modules
 
-include{ NANOPLOT   } from '../modules/NANOPLOT'
-include{ FLYE       } from '../modules/FLYE'
-include{ MEDAKA     } from '../modules/MEDAKA'
-include{ HOMOPOLISH } from '../modules/HOMOPOLISH'
-include{ MINIMAP2   } from '../modules/MINIMAP2'
-include{ SAMTOOLS   } from '../modules/SAMTOOLS'
-include{ ASSEMBLY_HEADER_FORMAT} from '../modules/ASSEMBLY_HEADER_FORMAT'
+
+
+include{ NANOPLOT   } from '../modules/local/NANOPLOT'
+include{ DRAGONFLYE } from '../modules/nf-core/modules/dragonflye/main'
+include{ HOMOPOLISH } from '../modules/local/HOMOPOLISH'
+include{ MINIMAP2   } from '../modules/local/MINIMAP2'                                
+include{ ASSEMBLY_HEADER_FORMAT} from '../modules/local/ASSEMBLY_HEADER_FORMAT'
 
 workflow LONG {
 	take:
@@ -19,31 +18,17 @@ workflow LONG {
 	
 	NANOPLOT(input_files)
 
-	FLYE(input_files)
+	DRAGONFLYE(input_files)
 	
-	input_files
-		.join(FLYE.out.assembly)
-		.set { ch_for_medaka }
-							
-	MEDAKA(ch_for_medaka)
-	
-	HOMOPOLISH(MEDAKA.out.medaka_polish, homopolish_db)
+	HOMOPOLISH(DRAGONFLYE.out.contigs, homopolish_db)
 	
 	ASSEMBLY_HEADER_FORMAT(HOMOPOLISH.out.homopolished)
 	
-	//adding second unused channel since only one set of reads
-	input_files
-                .join(FLYE.out.assembly)
-                .set { ch_for_minimap2 }
-
-	minimap2_mode = "map-ont"
-
-	MINIMAP2(minimap2_mode, ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, ch_for_minimap2)	
+	mapping_mode = "map-ont"	
 	
-	SAMTOOLS(minimap2_mode, MINIMAP2.out.minimap2_alignment)
-
-	MERGED_OUTPUT_CHANNEL = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.join(SAMTOOLS.out.samtools_out)
+	MINIMAP2(mapping_mode, ASSEMBLY_HEADER_FORMAT.out.ref_assembly, input_files)	
 
 	emit:
-	assembly_out      = MERGED_OUTPUT_CHANNEL
+	assembly      = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly
+	depth         = MINIMAP2.out.depth
 }
