@@ -17,9 +17,10 @@ process HOMOPOLISH {
         tuple val(meta), file(polished_assembly), emit: homopolished
 
         script:
-	polished_assembly="${meta.id}_homopolished.fasta"
+	polished_assembly="${meta.id}_homopolished.fasta.gz"
         """
 	mv ${medaka_polish} ${meta.id}.fasta
-        homopolish polish -a ${meta.id}.fasta -s ${db} -o . -m R9.4.pkl -t ${params.threads}
+        homopolish polish -a ${meta.id}.fasta -s ${db} -o . -m R9.4.pkl -t 8
+	gzip ${meta.id}_homopolished.fasta
 	"""
 }

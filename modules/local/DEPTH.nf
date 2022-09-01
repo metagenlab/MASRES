@@ -5,26 +5,27 @@ process DEPTH {
 
         tag "$meta.id"
 
+	label 'process_low'
+
         input:
 	val(mode)
-        file(assembly)
-        tuple val(meta), file(reads)
+        tuple val(meta), file(assembly), file(reads)
 
 	output:
 	tuple val(meta), file(samtools_output), emit: depth
 
 	script:
-	samtools_output = "${mode}_samtools.depth"
+	samtools_output = "${meta.id}_${mode}_samtools.depth"
 	if( mode == 'sr')
 		"""
-		minimap2 -ax ${mode} ${assembly} ${reads[0]} ${reads[1]} > aln.sam
+		minimap2 -ax ${mode} -t ${task.cpus} ${assembly} ${reads[0]} ${reads[1]} > aln.sam
 		samtools sort -o aln_sorted.bam aln.sam	
 		samtools view -h -o aln_sorted.sam aln_sorted.bam
 		samtools depth -a aln_sorted.sam > ${samtools_output}
 		"""
 	else
 		"""
-		minimap2 -ax ${mode} ${assembly} ${reads} > aln.sam
+		minimap2 -ax ${mode} -t ${task.cpus} ${assembly} ${reads} > aln.sam
 		samtools sort -o aln_sorted.bam aln.sam
                 samtools view -h -o aln_sorted.sam aln_sorted.bam
                 samtools depth -a aln_sorted.sam > ${samtools_output}

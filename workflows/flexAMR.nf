@@ -6,7 +6,6 @@ def helpMessage() {
 	Options:
 	   --reads_csv	Input csv file with fastq paths of raw reads
 	   --outdir	Output directory of files (default "results")
-	   --threads    Number of threads to use
 	   --mode       Mode to use (short, long or hybrid)
 	""".stripIndent()
 }
@@ -27,27 +26,19 @@ params.outdir = "results"
 if(!(params.mode in ['long', 'short', 'hybrid'])){
 	exit 1, 'Mode selected does not exist, only short, long and hybrid'
 	}
-if(params.mode == 'long' || params.mode == 'hybrid'){
-
-	homopolish_db = Channel
-			.fromPath(params.homopolish_db)
-	}
 
 
 
-bakta_db_dir = Channel
-                        .fromPath(params.bakta_db)
-platon_db_dir = Channel
-			.fromPath(params.platon_db)
 
-mash_db_dir = Channel
-			.fromPath(params.mash_db)
 
 include { INPUT_CHECK } from '../subworkflows/input_check'
 include { LONG   } from '../subworkflows/LONG'
 include { SHORT  } from '../subworkflows/SHORT'
 include { HYBRID } from '../subworkflows/HYBRID'
 include { AMR    } from '../subworkflows/AMR'
+include { MERGE_RESISTANCE } from '../modules/local/MERGE_RESISTANCE'
+include { REPORT_GENERATION } from '../modules/local/REPORT_GENERATION'
+include { DOCX_REPORT_CREATION} from '../modules/local/DOCX_REPORT_CREATION'
 
 workflow flexAMR {
 	
@@ -55,24 +46,30 @@ workflow flexAMR {
 
 
 	if (params.mode == 'long'){
-        LONG (INPUT_CHECK.out.longreads, homopolish_db)
-	ASSEMBLY_OUTPUT = LONG.out.assembly
-	DEPTH_OUTPUT = LONG.out.depth
+        LONG (INPUT_CHECK.out.longreads)
+	AMR(LONG.out.assembly)
+	MERGE_RESISTANCE(AMR.out.MERGED.collect(), AMR.out.MLST.collect())
+	REPORT_GENERATION(MERGE_RESISTANCE.out.mlst, AMR.out.MERGED.collect(), AMR.out.MASH.collect(), AMR.out.PLASMIDS.collect())
+	DOCX_REPORT_CREATION(REPORT_GENERATION.out.rst, params.docx_template)
 	}
 
 	if (params.mode == 'short'){
 	SHORT (INPUT_CHECK.out.shortreads)
-	ASSEMBLY_OUTPUT = SHORT.out.assembly
-	DEPTH_OUTPUT = SHORT.out.depth
+	AMR(SHORT.out.assembly)
+	MERGE_RESISTANCE(AMR.out.MERGED.collect(), AMR.out.MLST.collect())
+	REPORT_GENERATION(MERGE_RESISTANCE.out.mlst, AMR.out.MERGED.collect(), AMR.out.MASH.collect(), AMR.out.PLASMIDS.collect())
+	DOCX_REPORT_CREATION(REPORT_GENERATION.out.rst, params.docx_template)
+
 	}
 
 	if (params.mode == 'hybrid'){
-	HYBRID(INPUT_CHECK.out.longreads, homopolish_db, INPUT_CHECK.out.shortreads)
-	ASSEMBLY_OUTPUT = HYBRID.out.assembly
-	DEPTH_OUTPUT = HYBRID.out.depth
+	HYBRID(INPUT_CHECK.out.longreads, INPUT_CHECK.out.shortreads)
+	AMR(HYBRID.out.assembly)
+        MERGE_RESISTANCE(AMR.out.MERGED.collect(), AMR.out.MLST.collect())
+	REPORT_GENERATION(MERGE_RESISTANCE.out.mlst, AMR.out.MERGED.collect(), AMR.out.MASH.collect(), AMR.out.PLASMIDS.collect())
+	DOCX_REPORT_CREATION(REPORT_GENERATION.out.rst, params.docx_template)
 	}
-	
-	AMR(ASSEMBLY_OUTPUT, DEPTH_OUTPUT, bakta_db_dir, platon_db_dir, mash_db_dir)
+
 }
 
 

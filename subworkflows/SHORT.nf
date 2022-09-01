@@ -1,18 +1,21 @@
 // Import modules
 
-include{ SPADES        } from '../modules/nf-core/modules/spades/main'
 include{ FASTQC        } from '../modules/nf-core/modules/fastqc/main'
 include{ FASTP         } from '../modules/nf-core/modules/fastp/main'
 include{ DEPTH         } from '../modules/local/DEPTH'
-include{ CONTIG_FILTERING } from '../modules/local/CONTIG_FILTERING'
-
+include{ ASSEMBLY_HEADER_FORMAT } from '../modules/local/ASSEMBLY_HEADER_FORMAT'
+include{ UNICYCLER        } from '../modules/nf-core/modules/unicycler/main'
+include { MULTIQC } from '../modules/nf-core/modules/multiqc/main'
+include { QUAST   } from '../modules/local/QUAST'
 
 workflow SHORT {
 	take:
 	input_files
 	
 	main:
-
+	
+	ch_multiqc_config        =    file("./assets/multiqc_config.yml", checkIfExists: true)
+	
 	// Trim Illumina reads with fastp
 	
 	FASTP(input_files, false, false)
@@ -23,21 +26,37 @@ workflow SHORT {
 
 	// Creating channel for spades and short read assembly
 
-	ch_spades = FASTP.out.reads.map { meta,reads -> [meta, reads, [], [] ]}
+	ch_unicycler = FASTP.out.reads.map { meta,reads -> [meta, reads, []]}
 
-	SPADES(ch_spades, [])
+	UNICYCLER(ch_unicycler)
 	
 	// Filtering short contigs
 
-	CONTIG_FILTERING(SPADES.out.contigs)
+	ASSEMBLY_HEADER_FORMAT(UNICYCLER.out.scaffolds)
+
+	// Assembly quality control
+
+	QUAST (ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, [], false, false)
 
 	// Calculating depth for every position in assembled genome
 
 	minimap2_mode = 'sr'
 
-	DEPTH(minimap2_mode, CONTIG_FILTERING.out.ref_assembly, FASTP.out.reads)
+	depth_ch = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly
+					.join(FASTP.out.reads)
+
+	DEPTH(minimap2_mode, depth_ch)
 	
+
+	ch_multiqc_files = Channel.empty()
+	ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect{it[1]}.ifEmpty([]))
+	ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1][0]}.ifEmpty([]))
+	ch_multiqc_files = ch_multiqc_files.mix(QUAST.out.results.collect())
+	
+	MULTIQC(
+		ch_multiqc_files.collect(), [ [ch_multiqc_config], [] ])
+
 	emit:
-	assembly = CONTIG_FILTERING.out.assembly
-	depth = DEPTH.out.depth
+	assembly = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.join(DEPTH.out.depth)
+	assembly_no_name = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.map{ meta, assembly -> assembly}
 }

@@ -11,10 +11,11 @@ process ASSEMBLY_HEADER_FORMAT {
 	tuple val(meta), file(assembly)
 
 	output:
-	tuple val(meta), path("./${meta.id}_final_assembly.fasta"), emit: formatted_assembly
-	path("./${meta.id}_final_assembly.fasta"), emit: ref_assembly
+	tuple val(meta), path("./${meta.id}.fasta"), emit: formatted_assembly
+	path("./${meta.id}.fasta"), emit: ref_assembly
 	shell:
 	'''
-	awk '/^>/{print ">contig_" ++i; next}{print}' < !{assembly} > !{meta.id}_final_assembly.fasta
+	gzip -d -c !{assembly} > contigs.fasta
+	awk '/^>/{print ">contig_" ++i; next}{print}' < contigs.fasta > !{meta.id}.fasta
 	'''
 }

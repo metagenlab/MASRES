@@ -16,6 +16,6 @@ process NANOPLOT {
 
         script:
         """
-        NanoPlot -t $params.threads --fastq ${reads} -p ${meta.id}_
+        NanoPlot --fastq ${reads} -p ${meta.id}_
         """
 }

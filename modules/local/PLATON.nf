@@ -12,11 +12,11 @@ process PLATON {
 
         output:
         val meta, emit: meta
-        tuple val(meta), path("./06_plasmid_annotation/${meta.id}.tsv"), emit: plasmid_annot
+        tuple val(meta), path("./06_plasmid_annotation/plasmids-${meta.id}.tsv"), emit: plasmid_annot
 
         shell:
         """
-        platon --db ${db} --output 06_plasmid_annotation --prefix ${meta.id} ${assembly}
+        platon --db ${db} --output 06_plasmid_annotation --prefix plasmids-${meta.id} ${assembly}
         """
 }
 

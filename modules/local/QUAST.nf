@@ -1,23 +1,40 @@
-//Assembly quality control with quast
+process QUAST {
+    label 'process_medium'
 
-process QUAST{
-	container="docker://quay.io/biocontainers/quast:5.0.2--py36pl5321hcac48a8_7"
+    conda (params.enable_conda ? 'bioconda::quast=5.2.0' : null)
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/quast:5.2.0--py39pl5321h2add14b_1' :
+        'quay.io/biocontainers/quast:5.2.0--py39pl5321h2add14b_1' }"
+    
+    tag "${meta.id}"
 
-	tag "$ID"
 
-	publishDir "${params.outdir}/${ID}/QC/", mode: 'copy'
+    input:
+    tuple val(meta), path(assembly)
+    path gff
+    val use_fasta
+    val use_gff
 
-	input:
-	tuple val(ID), file(assembly), file(depth)
+    output:
+    path "${prefix}/*"    , emit: results
+    path "${prefix}/*.tsv"        , emit: tsv
+    path "versions.yml" , emit: versions
 
-	output:
-	val ID, emit: ID
-	tuple val(ID), path('./07_QuastQC/report.txt'), emit: quast_results
+    when:
+    task.ext.when == null || task.ext.when
 
-	script:
-	"""
-	quast.py ${assembly} -o 07_QuastQC
-	"""
+    script:
+    def args = task.ext.args   ?: ''
+    prefix   = task.ext.prefix ?: "${meta.id}"
+    """
+    quast.py \\
+        --output-dir $prefix \\
+        --threads $task.cpus \\
+        $args \\
+        ${assembly}
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        quast: \$(quast.py --version 2>&1 | sed 's/^.*QUAST v//; s/ .*\$//')
+    END_VERSIONS
+    """
 }
-
-	

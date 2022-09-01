@@ -20,7 +20,7 @@ git clone -b master https://github.com/metagenlab/MASRES.git
 
 ```
 
-After this, you will need to download the database for Homopolish.
+After this, you will need to download the databases.
 
 ```
 cd MASRES/
@@ -45,17 +45,21 @@ are provided, all that is required is to replace the names of the samples and th
 
 To get help documentation:
 
+```
 nextflow run main.nf --help
+```
 
 To run a hybrid assembly:
 
-nextflow run main.nf --reads_csv samples_hybrid.csv --outdir results_hybrid --threads 10 --mode hybrid
+```
+nextflow run main.nf --reads_csv samples_hybrid.csv --outdir results_hybrid --mode hybrid
+```
 
 To run short read assembly:
 
-nextflow run main.nf --reads_csv samples_short.csv --outdir results_short --threads 10 --mode short
-
+```
+nextflow run main.nf --reads_csv samples_short.csv --outdir results_short --mode short
+```
 TO run long read assembly:
 
-nextflow run main.nf --reads_csv samples_long.csv --outdir results_long --threads 10 --mode long
->>>>>>> assembly
+nextflow run main.nf --reads_csv samples_long.csv --outdir results_long --mode long

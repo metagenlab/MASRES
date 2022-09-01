@@ -6,11 +6,10 @@ process HYB_COVERAGE {
 	tag "$meta.id"
 
 	input:
-	tuple val(meta), file(Depth_long)
-	tuple val(meta), file(Depth_short)
+	tuple val(meta), file(Depth_short), file(Depth_long)
 
 	output:
-	tuple val(meta.id), file("./merged_coverage.depth"), emit: hybrid_coverage
+	tuple val(meta), file("./merged_coverage.depth"), emit: hybrid_coverage
 
 	script:
 	"""

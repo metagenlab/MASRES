@@ -1,2 +1,3 @@
 ID,R1,R2,LongFastQ,Fast5,GenomeSize
 10227,test_data/10227_S1_L001_R1_001.fastq.gz,test_data/10227_S1_L001_R2_001.fastq.gz,NA,NA,NA
+10897,test_data/10897_S2_L001_R1_001.fastq.gz,test_data/10897_S2_L001_R2_001.fastq.gz,NA,NA,NA
