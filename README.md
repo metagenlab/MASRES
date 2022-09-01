@@ -62,4 +62,6 @@ nextflow run main.nf --reads_csv samples_short.csv --outdir results_short --mode
 ```
 TO run long read assembly:
 
+```
 nextflow run main.nf --reads_csv samples_long.csv --outdir results_long --mode long
+```
