@@ -7,6 +7,8 @@ include{ ASSEMBLY_HEADER_FORMAT } from '../modules/local/ASSEMBLY_HEADER_FORMAT'
 include{ UNICYCLER        } from '../modules/nf-core/modules/unicycler/main'
 include { MULTIQC } from '../modules/nf-core/modules/multiqc/main'
 include { QUAST   } from '../modules/local/QUAST'
+include { CENTRIFUGE_CENTRIFUGE } from '../modules/nf-core/modules/centrifuge/centrifuge/main'
+
 
 workflow SHORT {
 	take:
@@ -37,6 +39,10 @@ workflow SHORT {
 	// Assembly quality control
 
 	QUAST (ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, [], false, false)
+
+	// Contamination check with centrifuge
+
+	CENTRIFUGE_CENTRIFUGE(FASTP.out.reads, params.centrifuge_db, false, false, false)
 
 	// Calculating depth for every position in assembled genome
 

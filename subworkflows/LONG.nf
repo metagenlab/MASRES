@@ -11,6 +11,7 @@ include{ DEPTH      } from '../modules/local/DEPTH'
 include{ ASSEMBLY_HEADER_FORMAT} from '../modules/local/ASSEMBLY_HEADER_FORMAT'
 include { QUAST   } from '../modules/local/QUAST'
 include { MULTIQC } from '../modules/nf-core/modules/multiqc/main'
+include { CENTRIFUGE_LONG } from '../modules/local/CENTRIFUGE_LONG'
 
 
 workflow LONG {
@@ -26,7 +27,11 @@ workflow LONG {
 	NANOPLOT(input_files)
 
 	NANOSTAT(input_files)
+	
+	//Contamination check with centrifuge
 
+	CENTRIFUGE_LONG(input_files, params.centrifuge_db, false, false, false)
+	
 	// Subsampling, read filtering, assembly and Medaka polishing with Dragonflye
 
 	DRAGONFLYE(input_files)

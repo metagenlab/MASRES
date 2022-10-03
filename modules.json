@@ -6,6 +6,12 @@
             "bakta": {
                 "git_sha": "dfbb0bc17cb6799892e1d4d2de2f4e08abae92b6"
             },
+            "centrifuge/centrifuge": {
+                "git_sha": "d2726fcf75063960f06b36d2229a4c0966614108"
+            },
+            "checkm/lineagewf": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
             "dragonflye": {
                 "git_sha": "608bb2259851beee55f997b3b7503cee674744e2"
             },
@@ -14,9 +20,6 @@
             },
             "fastqc": {
                 "git_sha": "49b18b1639f4f7104187058866a8fab33332bdfe"
-            },
-            "mash/screen": {
-                "git_sha": "c452f562890534ca3d0a331de7c35b744037fdae"
             },
             "mlst": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
@@ -29,6 +32,9 @@
             },
             "samtools/view": {
                 "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
+            },
+            "sourmash/sketch": {
+                "git_sha": "f0800157544a82ae222931764483331a81812012"
             },
             "spades": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"

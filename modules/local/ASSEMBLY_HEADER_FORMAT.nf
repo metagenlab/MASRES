@@ -5,7 +5,7 @@ process ASSEMBLY_HEADER_FORMAT {
 
 	tag "$meta.id"
 
-	publishDir "${params.outdir}/${meta.id}/04_hybrid_assembly", mode: 'copy'
+	publishDir "${params.outdir}/${meta.id}/final_assembly", mode: 'copy'
 
 	input:
 	tuple val(meta), file(assembly)

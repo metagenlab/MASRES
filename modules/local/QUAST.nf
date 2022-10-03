@@ -16,8 +16,9 @@ process QUAST {
     val use_gff
 
     output:
-    path "${prefix}/*"    , emit: results
-    path "${prefix}/*.tsv"        , emit: tsv
+    path "*"    , emit: results
+    tuple val(meta), path("./report.tsv"), emit: tsv_tuple
+    path "*.tsv"        , emit: tsv
     path "versions.yml" , emit: versions
 
     when:
@@ -28,10 +29,12 @@ process QUAST {
     prefix   = task.ext.prefix ?: "${meta.id}"
     """
     quast.py \\
-        --output-dir $prefix \\
+        --output-dir . \\
         --threads $task.cpus \\
         $args \\
         ${assembly}
+
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         quast: \$(quast.py --version 2>&1 | sed 's/^.*QUAST v//; s/ .*\$//')

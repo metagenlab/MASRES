@@ -172,9 +172,9 @@ def parse_mash(mash_file_list):
         sample = os.path.splitext(samplebase)[0]
         # 0.999905	998/1000	0	Klebsiella pneumoniae strain 196 map unlocalized plasmid unnamed1 Plasmid_1_Contig_2, whole genome shotgun sequence
         with open(mash_file, "r") as f:
-            rows = [i.rstrip().split("\t") for i in f]
-            best_hit_score = rows[0][1]
-            best_hit_description = ' '.join(rows[0][3].split(" ")[0:2])
+            rows = [i.rstrip().split(",") for i in f]
+            best_hit_score = rows[1][1]
+            best_hit_description = ' '.join(rows[1][9].split(" ")[1:3])
             sample2species[sample] = [best_hit_description, best_hit_score]
     return sample2species
     

@@ -14,6 +14,8 @@ include{ HYB_COVERAGE} from '../modules/local/HYB_COV'
 include{ ASSEMBLY_HEADER_FORMAT       } from '../modules/local/ASSEMBLY_HEADER_FORMAT'
 include{ DEPTH as DEPTH_SHORT   } from '../modules/local/DEPTH'
 include{ DEPTH as DEPTH_LONG    } from '../modules/local/DEPTH'
+include { CENTRIFUGE_CENTRIFUGE } from '../modules/nf-core/modules/centrifuge/centrifuge/main'
+include { CENTRIFUGE_LONG } from '../modules/local/CENTRIFUGE_LONG'
 
 workflow HYBRID {
         take:
@@ -29,6 +31,7 @@ workflow HYBRID {
         NANOPLOT(input_long)
 
 	NANOSTAT(input_long)
+
 
 	// Subsampling, read filtering, assembly and Medaka polishing with Dragonflye
 
@@ -63,6 +66,12 @@ workflow HYBRID {
 	// Assembly QC quast
 
 	QUAST (ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, [], false, false)
+
+	// Contamination check on raw reads
+
+	CENTRIFUGE_CENTRIFUGE(FASTP.out.reads, params.centrifuge_db, false, false, false)
+
+	CENTRIFUGE_LONG(input_long, params.centrifuge_db, false, false, false)
 
 	//MultiQC report
 

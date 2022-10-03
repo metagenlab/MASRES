@@ -7,10 +7,11 @@ process FORMAT_RES {
 	publishDir "${params.outdir}/${meta.id}/resistance", mode: 'copy'
 
 	input:
-	tuple val(meta), file(gbff_file), file(BLDB_out), file(CDS_depth), file(rgi_file), file(mlst_file), file(plasmid_file)
+	tuple val(meta), file(gbff_file), file(BLDB_out), file(CDS_depth), file(rgi_file), file(mlst_file), file(plasmid_file), file(mash_file)
 	path(BLDB_db)
 
 	output:
+	tuple val(meta), path(mlst_file), path(out_file), path(mash_file), path(plasmid_file), emit: merged_channel
 	tuple val(meta), path("./BLDB_${meta.id}.tsv"), emit: formatted_BLDB
 	path("./BLDB_${meta.id}.tsv"), emit: BLDB_file
 	path(out_file), emit: merged_res
