@@ -16,6 +16,9 @@ include{ DEPTH as DEPTH_SHORT   } from '../modules/local/DEPTH'
 include{ DEPTH as DEPTH_LONG    } from '../modules/local/DEPTH'
 include { CENTRIFUGE_CENTRIFUGE } from '../modules/nf-core/modules/centrifuge/centrifuge/main'
 include { CENTRIFUGE_LONG } from '../modules/local/CENTRIFUGE_LONG'
+include { QUALIMAP_BAMQC as QUALIMAP_BAMQC_SHORT } from '../modules/nf-core/modules/qualimap/bamqc/main'
+include { QUALIMAP_BAMQC as QUALIMAP_BAMQC_LONG } from '../modules/nf-core/modules/qualimap/bamqc/main'
+include { BANDAGE_IMAGE   } from '../modules/local/BANDAGE_IMAGE'
 
 workflow HYBRID {
         take:
@@ -67,22 +70,15 @@ workflow HYBRID {
 
 	QUAST (ASSEMBLY_HEADER_FORMAT.out.formatted_assembly, [], false, false)
 
+	// Assembly graph image with Bandage
+
+	BANDAGE_IMAGE(DRAGONFLYE.out.gfa)
+
 	// Contamination check on raw reads
 
 	CENTRIFUGE_CENTRIFUGE(FASTP.out.reads, params.centrifuge_db, false, false, false)
 
 	CENTRIFUGE_LONG(input_long, params.centrifuge_db, false, false, false)
-
-	//MultiQC report
-
-	ch_multiqc_files = Channel.empty()
-	ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect{it[1]}.ifEmpty([]))
-	ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1][0]}.ifEmpty([]))
-	ch_multiqc_files = ch_multiqc_files.mix(NANOSTAT.out.txt.collect())
-	ch_multiqc_files = ch_multiqc_files.mix(QUAST.out.results.collect())
-
-	MULTIQC(
-		ch_multiqc_files.collect(), [ [ch_multiqc_config], [] ])
 	
 	//Mapping short and long reads to assembly to calculate depth at each position
 
@@ -98,13 +94,29 @@ workflow HYBRID {
 	long_mode = 'map-ont'
 	DEPTH_LONG(long_mode, depth_ch_long)
 
+	//Create qualimap reports for each bam file
+
+	QUALIMAP_BAMQC_SHORT(DEPTH_SHORT.out.bam, [])
+	QUALIMAP_BAMQC_LONG(DEPTH_LONG.out.bam, [])
+
 	//Merging depth files to get coverage of both long and short reads for each position
 
 	ch_hybrid = DEPTH_SHORT.out.depth.join(DEPTH_LONG.out.depth)
 
 	HYB_COVERAGE(ch_hybrid)
 	
-	
+	//MultiQC report
+
+	ch_multiqc_files = Channel.empty()
+	ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect{it[1]}.ifEmpty([]))
+	ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1][0]}.ifEmpty([]))
+	ch_multiqc_files = ch_multiqc_files.mix(NANOSTAT.out.txt.collect())
+	ch_multiqc_files = ch_multiqc_files.mix(QUAST.out.results.collect())
+	ch_multiqc_files = ch_multiqc_files.mix(QUALIMAP_BAMQC_SHORT.out.results.collect{it[1]}.ifEmpty([]))	
+	ch_multiqc_files = ch_multiqc_files.mix(QUALIMAP_BAMQC_LONG.out.results.collect{it[1]}.ifEmpty([]))
+
+	MULTIQC(
+		ch_multiqc_files.collect(), [ [ch_multiqc_config], [] ])
 	emit:
 	assembly      = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.join(HYB_COVERAGE.out.hybrid_coverage)
 	assembly_no_name = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.map{ meta, assembly -> assembly}

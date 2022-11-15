@@ -7,6 +7,7 @@ include{ ASSEMBLY_HEADER_FORMAT } from '../modules/local/ASSEMBLY_HEADER_FORMAT'
 include{ UNICYCLER        } from '../modules/nf-core/modules/unicycler/main'
 include { MULTIQC } from '../modules/nf-core/modules/multiqc/main'
 include { QUAST   } from '../modules/local/QUAST'
+include { QUALIMAP_BAMQC } from '../modules/nf-core/modules/qualimap/bamqc/main'
 include { CENTRIFUGE_CENTRIFUGE } from '../modules/nf-core/modules/centrifuge/centrifuge/main'
 
 
@@ -53,11 +54,13 @@ workflow SHORT {
 
 	DEPTH(minimap2_mode, depth_ch)
 	
+	QUALIMAP_BAMQC(DEPTH.out.bam, [])
 
 	ch_multiqc_files = Channel.empty()
 	ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect{it[1]}.ifEmpty([]))
 	ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1][0]}.ifEmpty([]))
 	ch_multiqc_files = ch_multiqc_files.mix(QUAST.out.results.collect())
+	ch_multiqc_files = ch_multiqc_files.mix(QUALIMAP_BAMQC.out.results.collect{it[1]}.ifEmpty([]))
 	
 	MULTIQC(
 		ch_multiqc_files.collect(), [ [ch_multiqc_config], [] ])

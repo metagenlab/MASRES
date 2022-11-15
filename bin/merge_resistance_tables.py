@@ -38,8 +38,12 @@ df_list = [pandas.read_csv(table, sep="\t", index_col=None, header=0) for table 
 
 combined = pandas.concat(df_list)
 
-combined_filtered = combined.loc[(combined['ORF_ID'].duplicated(keep=False) == False) | (combined['reference_db'] == 'BLDB'), :]
+list_of_df = [v for k, v in combined.groupby("ORF_ID")] #split df by ORF ID
+for i, df in enumerate(list_of_df):
+    if df.shape[0] > 1: #If predictions were made by both BLDB and RGI for the same ORF
+        list_of_df[i] = df[df['Percent_coverage']==df['Percent_coverage'].max()] #Keep the one with the highest perc coverage
+final_df = pandas.concat(list_of_df)
 
-sorted = combined_filtered.sort_values(by=['Sample'])
+sorted = final_df.sort_values(by=['Sample'])
 
 sorted.to_csv(args.output, sep="\t", index=None)

@@ -43,7 +43,7 @@ def create_fastq_channels(LinkedHashMap row) {
     def meta = [:]
     meta.id           = row.ID
     meta.single_end   = false
-    meta.genome_size  = row.GenomeSize == null ? 'NA' : row.GenomeSize
+    meta.genome_size  = row.GenomeSize == 'NA' ? "''" : row.GenomeSize
 
     def array = []
     // check short reads

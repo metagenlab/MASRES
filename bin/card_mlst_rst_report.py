@@ -195,11 +195,13 @@ def generate_report_rst(sample2mlst,
     for sample in SAMPLES_LIST:
         species = sample2species[sample][0]
         score = sample2species[sample][1]
-        MASH_DATA.append(f"{species} ({score})")
-    MLST_list = [f"{scheme},{mlst}" for scheme, mlst in sample2mlst.values()]
+        row = f"{sample},{sample2mlst[sample][0]},{sample2mlst[sample][1]},{species} ({score})"
+        MASH_DATA.append(row)
+        #MASH_DATA.append(f"{species},({score})")
+        #MASH_DATA.append(f"{sample2mlst[sample][0]},{sample2mlst[sample][1]}")
 
-    table_1_rows = [','.join(i) for i in zip(SAMPLES_LIST, MLST_list, MASH_DATA)]
-    table_1 = '\n    '.join(table_1_rows)
+    #table_1_rows = [','.join(i) for i in MASH_DATA]
+    table_1 = '\n    '.join(MASH_DATA)
 
 
     ######################

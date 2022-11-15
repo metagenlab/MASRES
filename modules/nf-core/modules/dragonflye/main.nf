@@ -14,7 +14,7 @@ process DRAGONFLYE {
     tuple val(meta), path("contigs.fa")                                        , emit: contigs
     tuple val(meta), path("dragonflye.log")                                    , emit: log
     tuple val(meta), path("{flye,miniasm,raven}.fasta")                        , emit: raw_contigs
-    tuple val(meta), path("{miniasm,raven}-unpolished.gfa"), optional:true     , emit: gfa
+    tuple val(meta), path("{flye,miniasm,raven}-unpolished.gfa")               , emit: gfa
     tuple val(meta), path("flye-info.txt"), optional:true                      , emit: txt
     path "versions.yml"                                                        , emit: versions
 
