@@ -1,7 +1,7 @@
 
-### FlexAMR
+### MASRES
 
-FlexAMR is a diagnostic sequencing pipeline that can provide resistance gene predictions from either raw Nanopore reads, Illumina reads or both.
+MASRES is a diagnostic sequencing pipeline that can provide resistance gene predictions from either raw Nanopore reads, Illumina reads or both.
 
 This tool is still under development.
 
@@ -33,7 +33,7 @@ If you've saved the database in a different place, open the config file and edit
 
 Now you have have all you need to start running FlexAMR
 
-FlexAMR has three modes "short" for short read assemblies using Illumina only, "long" for long read assemblies using Oxford Nanopore and
+MASRES has three modes "short" for short read assemblies using Illumina only, "long" for long read assemblies using Oxford Nanopore and
 "hybrid" for both Illumina and Oxford Nanopore. Keep in mind that each mode has its own dedicated sample csv format. Some examples of sample csv files 
 are provided, all that is required is to replace the names of the samples and the directories of the raw reads.
 
