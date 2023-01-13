@@ -20,25 +20,25 @@ git clone -b master https://github.com/metagenlab/MASRES.git
 
 ```
 
-After this, you will need to download the databases.
+After this, you will need to download the databases. A bash script is provided that will download some of these databases:
 
 ```
 cd MASRES/
-mkdir database
-cd database/
-wget http://bioinfo.cs.ccu.edu.tw/bioinfo/mash_sketches/bacteria.msh.gz
-gunzip bacteria.msh.gz
+bash ./db_download.sh
 ```
-If you've saved the database in a different place, open the config file and edit the path to the database accordingly
+The centrifuge database needs to be downloaded manually using the info on https://ccb.jhu.edu/software/centrifuge/manual.shtml#nt-database
 
-Now you have have all you need to start running FlexAMR
+For the BLDB database, since it is currently not available online, the fasta file in the config can be replaced with any custom fasta file with protein sequences of resistance genes.
+
+The config file needs to be edited with the paths to the downloaded databases
+
+Now you have have all you need to start running MASRES
 
 MASRES has three modes "short" for short read assemblies using Illumina only, "long" for long read assemblies using Oxford Nanopore and
-"hybrid" for both Illumina and Oxford Nanopore. Keep in mind that each mode has its own dedicated sample csv format. Some examples of sample csv files 
-are provided, all that is required is to replace the names of the samples and the directories of the raw reads.
+"hybrid" for both Illumina and Oxford Nanopore. Keep in mind that each mode expects specific inputs in the sample csv. An example file is provided, all that is required is to replace the names of the samples and the directories of the raw reads and add the corresponding flag when launching the pipeline.
 
 ## Overview of workflow
-![Untitled Diagram drawio (4)](https://user-images.githubusercontent.com/70012389/172053345-35fc312a-5ada-4cab-8a62-9aa6ad447d02.png)
+![Untitled Diagram drawio (4)](https://user-images.githubusercontent.com/70012389/212329086-aad5f0bd-b62c-4b0e-8122-1e8115d708c0.png)
 
 
 ## Example of command:
