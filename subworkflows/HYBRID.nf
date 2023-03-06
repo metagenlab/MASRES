@@ -27,11 +27,11 @@ workflow HYBRID {
 
         main:
 
-	ch_multiqc_config        =    file("./assets/multiqc_config.yml", checkIfExists: true)
+	ch_multiqc_config        =    file("$workflow.projectDir/assets/multiqc_config.yml", checkIfExists: true)
 	
 	// QC of raw reads with Nanoplot and Nanostat
 
-        NANOPLOT(input_long)
+    NANOPLOT(input_long)
 
 	NANOSTAT(input_long)
 

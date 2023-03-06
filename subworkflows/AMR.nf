@@ -1,9 +1,5 @@
-include{ MLST                   } from '../modules/nf-core/modules/mlst/main'
-include{ BAKTA                  } from '../modules/nf-core/modules/bakta/main'
+
 include{ PLATON                 } from '../modules/local/PLATON'
-include{ SOURMASH_SKETCH        } from '../modules/nf-core/modules/sourmash/sketch/main'
-include{ SOURMASH_GATHER        } from '../modules/local/SOURMASH_GATHER'
-include{ CHECKM_LINEAGEWF       } from '../modules/nf-core/modules/checkm/lineagewf/main' 
 include{ RGI                    } from '../modules/local/RGI'
 include{ RGI_FORMAT             } from '../modules/local/RGI_FORMAT'
 include{ BLDB_SEARCH            } from '../modules/local/BLAST_SEARCH_BLDB'
@@ -17,6 +13,11 @@ include{ MERGE_RESISTANCE       } from '../modules/local/MERGE_RESISTANCE'
 workflow AMR {
 	take:
 	assembly
+	faa 
+	gbff
+	fna
+	mlst
+	mash_csv_tuple
 
 	main:
 
@@ -28,43 +29,26 @@ workflow AMR {
 		.map{ meta, fasta, depth -> tuple(meta, depth) }
 		.set{ ch_depth }
 
+	RGI(faa)
 
-	MLST( ch_assembly )
+	BLDB_SEARCH(faa, params.bldb_db)
 
-	SOURMASH_SKETCH(ch_assembly)
-	
-	SOURMASH_GATHER(SOURMASH_SKETCH.out.signatures, params.sourmash_db)
-
-	CHECKM_LINEAGEWF(ch_assembly, "fasta")
-
-	BAKTA(ch_assembly, params.bakta_db, [], [])
-	
 	PLATON(ch_assembly, params.platon_db)
-
-	BAKTA.out.faa
-		.map{ meta, prot_faa -> tuple(meta, prot_faa) }
-                .set{ ch_bakta_prot }
-
-	RGI(BAKTA.out.faa)
-
-	BLDB_SEARCH(BAKTA.out.faa, params.bldb_db)
 	
 	ch_rgi_format =	ch_assembly.join(ch_depth)
-		.join(BAKTA.out.fna)
-		.join(BAKTA.out.gbff)
+		.join(fna)
+		.join(gbff)
 		.join(RGI.out.rgi_tsv)
 		.map{ meta, assembly, depth, fna, gbff, tsv -> tuple(meta, assembly, depth, fna, gbff, tsv) }
 	
 	RGI_FORMAT(ch_rgi_format)
 	
-
-
-	ch_res_format = BAKTA.out.gbff.join(BLDB_SEARCH.out.bldb_tsv)
+	ch_res_format = gbff.join(BLDB_SEARCH.out.bldb_tsv)
 		.join(RGI_FORMAT.out.CDS_depth)
 		.join(RGI_FORMAT.out.rgi_tsv)
-		.join(MLST.out.tsv)
+		.join(mlst)
 		.join(PLATON.out.plasmid_annot)
-		.join(SOURMASH_GATHER.out.csv_tuple)
+		.join(mash_csv_tuple)
 	
 	
 	FORMAT_RES(ch_res_format, params.bldb_db)
@@ -80,6 +64,6 @@ workflow AMR {
 	MERGED	      =	FORMAT_RES.out.merged_res
 	MLST          = FORMAT_RES.out.mlst
 	PLASMIDS      = FORMAT_RES.out.plasmids
-	MASH          = SOURMASH_GATHER.out.csv
+
 
 }

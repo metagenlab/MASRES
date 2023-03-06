@@ -44,6 +44,8 @@ for i, df in enumerate(list_of_df):
         list_of_df[i] = df[df['Percent_coverage']==df['Percent_coverage'].max()] #Keep the one with the highest perc coverage
 final_df = pandas.concat(list_of_df)
 
+final_df["Sample"] = final_df["Sample"].astype(str)
+
 sorted = final_df.sort_values(by=['Sample'])
 
 sorted.to_csv(args.output, sep="\t", index=None)

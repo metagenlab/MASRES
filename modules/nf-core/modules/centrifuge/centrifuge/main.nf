@@ -17,6 +17,7 @@ process CENTRIFUGE_CENTRIFUGE {
     output:
     tuple val(meta), path('*report.txt')                 , emit: report
     tuple val(meta), path('*results.txt')                , emit: results
+    tuple val(meta), path('*.reportk.txt')                , emit: reportk
     tuple val(meta), path('*.sam')                       , optional: true, emit: sam
     tuple val(meta), path('*.mapped.fastq{,.1,.2}.gz')   , optional: true, emit: fastq_mapped
     tuple val(meta), path('*.unmapped.fastq{,.1,.2}.gz') , optional: true, emit: fastq_unmapped
@@ -52,6 +53,8 @@ process CENTRIFUGE_CENTRIFUGE {
         $aligned \\
         $sam_output \\
         $args
+
+    centrifuge-kreport -x \$db_name ${prefix}.results.txt | sed -e 's/  \\+//g' > ${prefix}.reportk.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

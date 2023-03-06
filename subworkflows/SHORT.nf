@@ -17,7 +17,7 @@ workflow SHORT {
 	
 	main:
 	
-	ch_multiqc_config        =    file("./assets/multiqc_config.yml", checkIfExists: true)
+	ch_multiqc_config        =    file("$workflow.projectDir/assets/multiqc_config.yml", checkIfExists: true)
 	
 	// Trim Illumina reads with fastp
 	
@@ -62,10 +62,11 @@ workflow SHORT {
 	ch_multiqc_files = ch_multiqc_files.mix(QUAST.out.results.collect())
 	ch_multiqc_files = ch_multiqc_files.mix(QUALIMAP_BAMQC.out.results.collect{it[1]}.ifEmpty([]))
 	
-	MULTIQC(
-		ch_multiqc_files.collect(), [ [ch_multiqc_config], [] ])
+	MULTIQC(ch_multiqc_files.collect(), [ [ch_multiqc_config], [] ])
 
 	emit:
 	assembly = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.join(DEPTH.out.depth)
 	assembly_no_name = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.map{ meta, assembly -> assembly}
+	centrifuge = CENTRIFUGE_CENTRIFUGE.out.reportk
+	mltiqc = MULTIQC.out.report
 }
