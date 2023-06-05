@@ -1,4 +1,4 @@
-### FlexAMR
+### PlasAMR
 
 FlexAMR is a diagnostic sequencing pipeline that can provide resistance gene predictions from either raw Nanopore reads, Illumina reads or both.
 
