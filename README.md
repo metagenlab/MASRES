@@ -1,6 +1,6 @@
 ### PlasAMR
 
-PlasAMR is a diagnostic sequencing pipeline that can provide resistance gene predictions from either raw Nanopore reads, Illumina reads or both.
+PlasAMR is a sequencing pipeline that can provide plasmids detection and typing from either raw Nanopore reads or hybrid Illumina-Nanopore reads.
 
 This tool is still under development.
 
