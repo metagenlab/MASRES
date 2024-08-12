@@ -17,7 +17,7 @@ workflow SHORT {
 	
 	main:
 	
-	ch_multiqc_config        =    file("./assets/multiqc_config.yml", checkIfExists: true)
+	ch_multiqc_config        =    file("$workflow.projectDir/assets/multiqc_config.yml", checkIfExists: true)
 	
 	// Trim Illumina reads with fastp
 	
