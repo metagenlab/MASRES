@@ -1,0 +1,4 @@
+ID,R1,R2,LongFastQ,Fast5,GenomeSize
+sample1,path/to/read_1.fastq.gz,path/to/read_2.fastq.gz,path/to/raw_ont.fastq.gz,NA,NA
+sample2,path/to/read_1.fastq.gz,path/to/read_2.fastq.gz,path/to/raw_ont.fastq.gz,NA,NA
+sample3,path/to/read_1.fastq.gz,path/to/read_2.fastq.gz,path/to/raw_ont.fastq.gz,NA,NA

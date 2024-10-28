@@ -110,12 +110,15 @@ locus2data = {}
 for record in gbk:
     for feature in record.features:
         if feature.type == 'CDS':
-
+            try:
+                aa_seq = str(feature.qualifiers["translation"][0])
+            except:
+                aa_seq = None
             locus2data[feature.qualifiers["locus_tag"][0]] = {"start": int(feature.location.start), 
                                                               "stop": int(feature.location.end), 
                                                               "strand": feature.location.strand, 
                                                               "nucl_seq": str(feature.extract(record.seq)),
-                                                              "aa_seq": str(feature.qualifiers["translation"][0]),
+                                                              "aa_seq": aa_seq,
                                                               "contig": record.name, 
                                                               "depth": int(gene_depth_file.loc[feature.qualifiers["locus_tag"][0],"depth"]), 
                                                               "contig_depth": int(gene_depth_file.loc[feature.qualifiers["locus_tag"][0],"contig_depth"]),

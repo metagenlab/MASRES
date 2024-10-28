@@ -1,7 +1,7 @@
 //Annotation with bakta
 
 process BAKTA {
-	container = "docker://quay.io/biocontainers/bakta:1.3.3--pyhdfd78af_0"
+	container = "docker://quay.io/biocontainers/bakta:1.9.3--pyhdfd78af_0"
 
 	tag "$ID"
 
