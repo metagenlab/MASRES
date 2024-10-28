@@ -1,8 +1,8 @@
 process GTDBTK_CLASSIFY {
     tag "-"
 
-    conda (params.enable_conda ? "bioconda::gtdbtk=2.0.0" : null)
-    container "ecogenomic/gtdbtk:2.1.1"
+    conda (params.enable_conda ? "bioconda::gtdbtk=2.4.0" : null)
+    container "ecogenomic/gtdbtk:2.4.0"
 
     input:
     path("bins/*")
