@@ -38,14 +38,19 @@ df_list = [pandas.read_csv(table, sep="\t", index_col=None, header=0) for table 
 
 combined = pandas.concat(df_list)
 
-list_of_df = [v for k, v in combined.groupby("ORF_ID")] #split df by ORF ID
+#split df by ORF ID
+list_of_df = [v for k, v in combined.groupby("ORF_ID")]
 for i, df in enumerate(list_of_df):
-    if df.shape[0] > 1: #If predictions were made by both BLDB and RGI for the same ORF
-        list_of_df[i] = df[df['Percent_coverage']==df['Percent_coverage'].max()] #Keep the one with the highest perc coverage
-final_df = pandas.concat(list_of_df)
+    #If predictions were made by both BLDB and RGI for the same ORF
+    if df.shape[0] > 1:
+        #Keep the one with the highest perc coverage
+        list_of_df[i] = df[df['Percent_coverage']==df['Percent_coverage'].max()] 
 
-final_df["Sample"] = final_df["Sample"].astype(str)
+if len(list_of_df):
+    final_df = pandas.concat(list_of_df)
+    final_df["Sample"] = final_df["Sample"].astype(str)
+    sorted_df = final_df.sort_values(by=['Sample'])
+else:
+    sorted_df = pandas.DataFrame(columns=combined.columns)
 
-sorted = final_df.sort_values(by=['Sample'])
-
-sorted.to_csv(args.output, sep="\t", index=None)
+sorted_df.to_csv(args.output, sep="\t", index=None)
