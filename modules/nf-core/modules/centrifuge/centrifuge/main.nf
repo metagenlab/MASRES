@@ -1,6 +1,7 @@
 process CENTRIFUGE_CENTRIFUGE {
     tag "$meta.id"
     label 'process_high'
+    maxForks 1
 
     conda (params.enable_conda ? "bioconda::centrifuge=1.0.4_beta" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
