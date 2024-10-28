@@ -354,8 +354,8 @@ Diag Pipeline - {report_type} report
         
         df = pandas.read_csv(gtdbtk_summary, header=0, sep="\t")
         
-        df = df[["user_genome", "classification","closest_placement_taxonomy", "closest_placement_ani", "closest_placement_af", "closest_placement_reference", "classification_method"]]
-        df = df.rename(columns={"user_genome":"Sample", "closest_placement_ani":"ani", "closest_placement_af":"alignment fraction", "closest_placement_taxonomy":"Closest", "closest_placement_reference": "Closest acc."})
+        df = df[["user_genome", "classification","closest_genome_taxonomy", "closest_genome_ani", "closest_genome_af", "closest_genome_reference", "classification_method"]]
+        df = df.rename(columns={"user_genome":"Sample", "closest_genome_ani":"ani", "closest_genome_af":"alignment fraction", "closest_genome_taxonomy":"Closest", "closest_genome_reference": "Closest acc."})
         df["Closest"] = [i.split(";")[-1] for i in df["Closest"]]
         df["acc."] = [f'<a href="https://www.ncbi.nlm.nih.gov/assembly/{i}">{i}</a>' for i in df["Closest acc."]]
         df = df.rename(columns={"user_genome":"Sample"})
