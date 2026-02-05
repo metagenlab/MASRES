@@ -201,7 +201,17 @@ Diag Pipeline - {report_type} report
         '''
         df_list = []
         for one_file in file_list:
-            df = pandas.read_csv(one_file)[["query_name", "intersect_bp","f_orig_query","f_match","name","f_match_orig"]]
+            # 101992156036_22368.mash
+            try:
+                df = pandas.read_csv(one_file)[["query_name", "intersect_bp","f_orig_query","f_match","name","f_match_orig"]]
+            except pandas.errors.EmptyDataError:
+                df = pandas.DataFrame.from_dict({"query_name": [one_file.split(".mash")[0]],
+                                                 "intersect_bp": ["-"],
+                                                 "f_orig_query": [0],
+                                                 "f_match": [0],
+                                                 "name": ["-"],
+                                                 "f_match_orig": ["-"]
+                                       })
             df = df.rename(columns={"query_name":"Sample"})
             df_list.append(df)
         df_merged = pandas.concat(df_list)
@@ -214,6 +224,21 @@ Diag Pipeline - {report_type} report
         df_merged = df_merged.drop(["name", "f_match_orig"], axis=1)
         df_merged_filt = df_merged.groupby(["Sample"]).head(1).reset_index()
 
+
+        # extract columns for tsv report
+        ###############
+        cols = {
+            "Sample": "sample",
+            "f_orig_query":"sourmash_fraction_ref",
+            "f_match":"sourmash_fraction_query",
+            "acc":"sourmash_acc",
+            "description":"sourmash_description",
+        }
+
+        df_resh = df_merged_filt[cols.keys()].rename(columns=cols).set_index(["sample"]).stack()
+
+        self.summary_table += df_resh.reset_index().values.tolist()
+
         pandas.set_option('display.max_colwidth', None)
 
         df_str = df_merged_filt.reset_index(drop=True).to_html(
@@ -223,6 +248,7 @@ Diag Pipeline - {report_type} report
             table_id="mash_table",
             escape=False,
             border=0)
+        
 
         return df_str.replace("\n", "\n" + 10 * " ")
 
@@ -315,7 +341,7 @@ Diag Pipeline - {report_type} report
     
 
     def get_rrna_summary_table(self, 
-                            raw_table):
+                               raw_table):
         
         df = pandas.read_csv(raw_table, delimiter="\t", header=0)
         
@@ -356,7 +382,7 @@ Diag Pipeline - {report_type} report
         
         df = df[["user_genome", "classification","closest_genome_taxonomy", "closest_genome_ani", "closest_genome_af", "closest_genome_reference", "classification_method"]]
         df = df.rename(columns={"user_genome":"Sample", "closest_genome_ani":"ani", "closest_genome_af":"alignment fraction", "closest_genome_taxonomy":"Closest", "closest_genome_reference": "Closest acc."})
-        df["Closest"] = [i.split(";")[-1] for i in df["Closest"]]
+        df["Closest"] = [str(i).split(";")[-1] for i in df["Closest"]]
         df["acc."] = [f'<a href="https://www.ncbi.nlm.nih.gov/assembly/{i}">{i}</a>' for i in df["Closest acc."]]
         df = df.rename(columns={"user_genome":"Sample"})
         df["classification"] = [', '.join(i.split(";")) for i in df["classification"]]
