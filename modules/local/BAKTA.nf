@@ -24,6 +24,6 @@ process BAKTA {
 
 	script:
 	"""
-	bakta --db ${db} --output 05_annotation --prefix ${ID} --locus-tag 'bakta' --threads ${params.threads} --complete ${assembly}
+	bakta --db ${db} --output 05_annotation --prefix ${ID} --locus-tag 'bakta' --threads ${params.threads} ${assembly}
 	"""
 }
