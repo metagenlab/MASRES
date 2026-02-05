@@ -4,8 +4,8 @@ process SOURMASH_GATHER {
 
     conda (params.enable_conda ? "bioconda::4.4.3--hdfd78af_0" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/sourmash:4.4.3--hdfd78af_0':
-        'quay.io/biocontainers/sourmash:4.4.3--hdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/sourmash:4.8.14--hdfd78af_0':
+        'quay.io/biocontainers/sourmash:4.8.14--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(signature)
