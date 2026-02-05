@@ -9,7 +9,7 @@ include { MULTIQC } from '../modules/nf-core/modules/multiqc/main'
 include { QUAST   } from '../modules/local/QUAST'
 include { QUALIMAP_BAMQC } from '../modules/nf-core/modules/qualimap/bamqc/main'
 include { CENTRIFUGE_CENTRIFUGE } from '../modules/nf-core/modules/centrifuge/centrifuge/main'
-
+include { CENTRIFUGE_KREPORT } from '../modules/nf-core/modules/centrifuge/kreport/main'
 
 workflow SHORT {
 	take:
@@ -43,7 +43,9 @@ workflow SHORT {
 
 	// Contamination check with centrifuge
 
-	CENTRIFUGE_CENTRIFUGE(FASTP.out.reads, params.centrifuge_db, false, false, false)
+	CENTRIFUGE_CENTRIFUGE(FASTP.out.reads, params.centrifuge_db, false, false)
+
+	CENTRIFUGE_KREPORT(CENTRIFUGE_CENTRIFUGE.out.results, params.centrifuge_db)
 
 	// Calculating depth for every position in assembled genome
 
@@ -67,6 +69,6 @@ workflow SHORT {
 	emit:
 	assembly = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.join(DEPTH.out.depth)
 	assembly_no_name = ASSEMBLY_HEADER_FORMAT.out.formatted_assembly.map{ meta, assembly -> assembly}
-	centrifuge = CENTRIFUGE_CENTRIFUGE.out.reportk
+	centrifuge = CENTRIFUGE_KREPORT.out.kreport
 	mltiqc = MULTIQC.out.report
 }
