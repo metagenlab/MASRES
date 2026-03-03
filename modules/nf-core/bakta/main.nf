@@ -4,8 +4,8 @@ process BAKTA {
 
     conda (params.enable_conda ? "bioconda::bakta=1.12.0" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'oschwengers/bakta:v1.12.0' :
-        'quay.io/biocontainers/bakta:1.12.0' }"
+        'docker://quay.io/biocontainers/bakta:1.12.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/bakta:1.12.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(fasta)
