@@ -1,5 +1,5 @@
 process PLATON {
-        container = "docker://quay.io/biocontainers/platon:1.6--pyhdfd78af_1"
+        container "docker://quay.io/biocontainers/platon:1.6--pyhdfd78af_1"
 
         tag "$meta.id"
 

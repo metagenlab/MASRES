@@ -2,7 +2,7 @@
 
 
 process HOMOPOLISH {
-        container = "docker://quay.io/biocontainers/homopolish:0.3.3--pyh5e36f6f_0"
+        container "quay.io/biocontainers/homopolish:0.3.3--pyh5e36f6f_0"
 
         tag "$meta.id"
 

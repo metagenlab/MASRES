@@ -1,6 +1,7 @@
-#!/opt/conda/envs/python-r/bin/python
+#!/usr/bin/env python
 import argparse
 import os
+import gzip
 from typing import NamedTuple
 from Bio import SeqIO
 import pandas 
@@ -99,12 +100,30 @@ ssearch_result = pandas.read_csv(args.ssearch_out, header = None, names = ["qseq
 # contig	gene	start	end	depth	ratio_assembly	contig_depth	contig_ratio_depth	contig_length
 gene_depth_file = pandas.read_csv(args.depth_file, sep="\t", header=0, index_col="gene")
 
-fasta_db = SeqIO.parse(args.BLDB_db, "fasta")
+#########RMV#################
+#fasta_db = SeqIO.parse(args.BLDB_db, "fasta")
+#id_cutoff = float(args.id_cutoff)
+
+# >gi|40950501|gb|AAR97884.1|AFA-1| class A beta-lactamase
+# >WP_063645611.1|AFA-2| class A beta-lactamase
+#accession2data = {record.id: [record.description, record.seq] for record in fasta_db}
+##########RMV#################
+
+###ADDED 30 Mar##
 id_cutoff = float(args.id_cutoff)
 
 # >gi|40950501|gb|AAR97884.1|AFA-1| class A beta-lactamase
 # >WP_063645611.1|AFA-2| class A beta-lactamase
-accession2data = {record.id: [record.description, record.seq] for record in fasta_db}
+
+# Check if the database is zipped and read accordingly
+if args.BLDB_db.endswith('.gz'):
+    with gzip.open(args.BLDB_db, "rt") as handle:
+        fasta_db = SeqIO.parse(handle, "fasta")
+        accession2data = {record.id: [record.description, record.seq] for record in fasta_db}
+else:
+    fasta_db = SeqIO.parse(args.BLDB_db, "fasta")
+    accession2data = {record.id: [record.description, record.seq] for record in fasta_db}
+###ADDED 30 Mar##
 
 locus2data = {}
 for record in gbk:

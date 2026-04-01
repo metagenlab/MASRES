@@ -16,6 +16,9 @@ process INDIVIDUAL_DOCX_REPORT {
 
 	script:
 	"""
-	pandoc --reference-doc=${docx_reference} ${rst_report} -o ${meta.id}_report.docx --wrap=preserve
-	"""
+	####RMV30MAR2026## pandoc --reference-doc=${docx_reference} ${rst_report} -o ${meta.id}_report.docx --wrap=preserve ###
+	
+	##ADD## Point exactly to the assets folder in the main pipeline directory
+    pandoc --reference-doc=${projectDir}/assets/reference.docx ${rst_report} -o ${meta.id}_report.docx --wrap=preserve
+    """
 }

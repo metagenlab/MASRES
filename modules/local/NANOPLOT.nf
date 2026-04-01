@@ -2,7 +2,7 @@
 
 
 process NANOPLOT {
-        container = "docker://staphb/nanoplot"
+        container "docker://staphb/nanoplot"
 
 	tag "$meta.id"
 

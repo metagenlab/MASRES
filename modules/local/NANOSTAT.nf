@@ -1,5 +1,6 @@
 process NANOSTAT {
-        container = "docker://quay.io/biocontainers/nanostat:1.6.0--pyhdfd78af_0"
+        // container 'quay.io/biocontainers/pyani:0.2.12--pyhdfd78af_0
+        container "quay.io/biocontainers/nanostat:1.6.0--pyhdfd78af_0"
 
 	tag "$meta.id"
 

@@ -1,0 +1,506 @@
+Mar-02 19:40:31.180 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf --reads_csv samples2.csv --outdir results_long --mode long
+Mar-02 19:40:31.240 [main] DEBUG nextflow.cli.CmdRun - N E X T F L O W  ~  version 25.10.4
+Mar-02 19:40:31.252 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/mgeramim/.nextflow/plugins; core-plugins: nf-amazon@3.4.4,nf-azure@1.20.2,nf-cloudcache@0.5.0,nf-codecommit@0.5.0,nf-console@1.3.0,nf-google@1.23.5,nf-k8s@1.2.2,nf-tower@1.17.5,nf-wave@1.16.1
+Mar-02 19:40:31.269 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Mar-02 19:40:31.269 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Mar-02 19:40:31.271 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Mar-02 19:40:31.280 [main] DEBUG nextflow.util.RetryConfig - Missing nextflow session - using default retry config
+Mar-02 19:40:31.351 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Mar-02 19:40:31.369 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /home/mgeramim/first_step/MASRES/nextflow.config
+Mar-02 19:40:31.370 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/mgeramim/first_step/MASRES/nextflow.config
+Mar-02 19:40:31.385 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-02 19:40:32.007 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Mar-02 19:40:32.007 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Mar-02 19:40:32.016 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /home/mgeramim/.nextflow/secrets/store.json
+Mar-02 19:40:32.017 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@1af4955e] - activable => nextflow.secret.LocalSecretsProvider@1af4955e
+Mar-02 19:40:32.018 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declaration
+Mar-02 19:40:32.025 [main] DEBUG nextflow.cli.CmdRun - Launching `main.nf` [wise_leavitt] DSL2 - revision: 69ed7a4802
+Mar-02 19:40:32.055 [main] DEBUG nextflow.Session - Session UUID: 6b9934c6-2608-4a74-890d-b51c95bf8b59
+Mar-02 19:40:32.055 [main] DEBUG nextflow.Session - Run name: wise_leavitt
+Mar-02 19:40:32.055 [main] DEBUG nextflow.Session - Executor pool size: 12
+Mar-02 19:40:32.061 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Mar-02 19:40:32.064 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=36; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Mar-02 19:40:32.076 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 25.10.4 build 11173
+  Created: 10-02-2026 15:17 UTC (16:17 CEST)
+  System: Linux 6.8.0-101-generic
+  Runtime: Groovy 4.0.28 on OpenJDK 64-Bit Server VM 17.0.10+7
+  Encoding: UTF-8 (UTF-8)
+  Process: 9362@hos70874 [155.105.139.62]
+  CPUs: 12 - Mem: 62.5 GB (52 GB) - Swap: 8 GB (8 GB)
+Mar-02 19:40:32.088 [main] DEBUG nextflow.Session - Work-dir: /home/mgeramim/first_step/MASRES/work [ext2/ext3]
+Mar-02 19:40:32.105 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Mar-02 19:40:32.111 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
+Mar-02 19:40:32.113 [main] DEBUG nextflow.Session - Observer factory (v2): DefaultObserverFactory
+Mar-02 19:40:32.138 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Mar-02 19:40:32.143 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 13; maxThreads: 1000
+Mar-02 19:40:32.196 [main] DEBUG nextflow.Session - Session start
+Mar-02 19:40:32.248 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-02 19:40:32.622 [main] WARN  nextflow.script.ScriptBinding - Access to undefined parameter `enable_conda` -- Initialise it to a default value eg. `params.enable_conda = some_value`
+Mar-02 19:40:34.154 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.154 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.160 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Mar-02 19:40:34.164 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=40; memory=232 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
+Mar-02 19:40:34.165 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Mar-02 19:40:34.178 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:NANOPLOT': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.198 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.198 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.198 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:NANOSTAT': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.203 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_high` matches labels `process_high` for process with name flexAMR:LONG:CENTRIFUGE_LONG
+Mar-02 19:40:34.204 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:CENTRIFUGE_LONG` matches process flexAMR:LONG:CENTRIFUGE_LONG
+Mar-02 19:40:34.206 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.206 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.206 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:CENTRIFUGE_LONG': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.210 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:LONG:DRAGONFLYE
+Mar-02 19:40:34.211 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:DRAGONFLYE` matches process flexAMR:LONG:DRAGONFLYE
+Mar-02 19:40:34.214 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.214 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.215 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:DRAGONFLYE': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.219 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.219 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.219 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:HOMOPOLISH': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.223 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.223 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.224 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:ASSEMBLY_HEADER_FORMAT': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.228 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:LONG:QUAST
+Mar-02 19:40:34.228 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:QUAST` matches process flexAMR:LONG:QUAST
+Mar-02 19:40:34.229 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.229 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.229 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:QUAST': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.236 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_low` matches labels `process_low` for process with name flexAMR:LONG:DEPTH
+Mar-02 19:40:34.237 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.237 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.238 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:DEPTH': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.241 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:LONG:QUALIMAP_BAMQC
+Mar-02 19:40:34.242 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.242 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.242 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:QUALIMAP_BAMQC': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.245 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_low` matches labels `process_low` for process with name flexAMR:LONG:BANDAGE_IMAGE
+Mar-02 19:40:34.245 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:BANDAGE_IMAGE` matches process flexAMR:LONG:BANDAGE_IMAGE
+Mar-02 19:40:34.246 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.246 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.246 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:BANDAGE_IMAGE': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.259 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:LONG:MULTIQC
+Mar-02 19:40:34.259 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:MULTIQC` matches process flexAMR:LONG:MULTIQC
+Mar-02 19:40:34.260 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.260 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.261 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:LONG:MULTIQC': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.269 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_low` matches labels `process_low` for process with name flexAMR:AMR:MLST
+Mar-02 19:40:34.269 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:MLST` matches process flexAMR:AMR:MLST
+Mar-02 19:40:34.270 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.270 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.271 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:MLST': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.273 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_low` matches labels `process_low` for process with name flexAMR:AMR:SOURMASH_SKETCH
+Mar-02 19:40:34.273 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:SOURMASH_SKETCH` matches process flexAMR:AMR:SOURMASH_SKETCH
+Mar-02 19:40:34.274 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.274 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.275 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:SOURMASH_SKETCH': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.277 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_low` matches labels `process_low` for process with name flexAMR:AMR:SOURMASH_GATHER
+Mar-02 19:40:34.277 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:SOURMASH_GATHER` matches process flexAMR:AMR:SOURMASH_GATHER
+Mar-02 19:40:34.278 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.279 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.279 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:SOURMASH_GATHER': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.282 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:AMR:CHECKM_LINEAGEWF
+Mar-02 19:40:34.283 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:CHECKM_LINEAGEWF` matches process flexAMR:AMR:CHECKM_LINEAGEWF
+Mar-02 19:40:34.284 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.284 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.284 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:CHECKM_LINEAGEWF': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.288 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:AMR:BAKTA
+Mar-02 19:40:34.289 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:BAKTA` matches process flexAMR:AMR:BAKTA
+Mar-02 19:40:34.290 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.290 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.291 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:BAKTA': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.297 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.297 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.297 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:PLATON': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.301 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:AMR:RGI
+Mar-02 19:40:34.302 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:RGI` matches process flexAMR:AMR:RGI
+Mar-02 19:40:34.303 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.303 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.303 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:RGI': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.306 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name flexAMR:AMR:BLDB_SEARCH
+Mar-02 19:40:34.307 [main] DEBUG n.script.dsl.ProcessConfigBuilder - Config settings `withName:BLDB_SEARCH` matches process flexAMR:AMR:BLDB_SEARCH
+Mar-02 19:40:34.308 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.308 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.308 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:BLDB_SEARCH': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.317 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.317 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.317 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:RGI_FORMAT': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.330 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.330 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.330 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:FORMAT_RES': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.335 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.335 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.336 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:INDIVIDUAL_REPORT': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.338 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.338 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.339 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:AMR:INDIVIDUAL_DOCX_REPORT': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.344 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.344 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.344 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:MERGE_RESISTANCE': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.345 [main] WARN  nextflow.processor.TaskProcessor - Output `tuple` must define at least two elements -- Check process `flexAMR:MERGE_RESISTANCE`
+Mar-02 19:40:34.352 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.352 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.353 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:REPORT_GENERATION': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.356 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-02 19:40:34.357 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-02 19:40:34.357 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'flexAMR:DOCX_REPORT_CREATION': maxForks=0; fair=false; array=0
+Mar-02 19:40:34.359 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: DEPTH_LONG, CENTRIFUGE_LONG, flexAMR:LONG:QUALIMAP_BAMQC, BLDB_SEARCH, CHECKM_LINEAGEWF, FASTP, BWA, CENTRIFUGE_CENTRIFUGE, QUALIMAP_BAMQC, ASSEMBLY_HEADER_FORMAT, flexAMR:LONG:HOMOPOLISH, BAKTA, flexAMR:REPORT_GENERATION, PLATON, DEPTH_SHORT, NANOSTAT, QUAST, flexAMR:LONG:MULTIQC, INDIVIDUAL_REPORT, flexAMR:AMR:CHECKM_LINEAGEWF, flexAMR:AMR:BLDB_SEARCH, POLYPOLISH, flexAMR:LONG:CENTRIFUGE_LONG, flexAMR:AMR:SOURMASH_GATHER, flexAMR:AMR:INDIVIDUAL_DOCX_REPORT, flexAMR:AMR:BAKTA, flexAMR:AMR:INDIVIDUAL_REPORT, RGI, HOMOPOLISH, flexAMR:MERGE_RESISTANCE, SOURMASH_GATHER, NANOPLOT, FASTQC, QUALIMAP_BAMQC_SHORT, MULTIQC, UNICYCLER, DRAGONFLYE, flexAMR:AMR:FORMAT_RES, QUALIMAP_BAMQC_LONG, flexAMR:LONG:NANOSTAT, flexAMR:LONG:QUAST, flexAMR:AMR:MLST, flexAMR:AMR:PLATON, flexAMR:AMR:RGI_FORMAT, MLST, MERGE_RESISTANCE, flexAMR:LONG:ASSEMBLY_HEADER_FORMAT, flexAMR:LONG:DEPTH, flexAMR:LONG:BANDAGE_IMAGE, INDIVIDUAL_DOCX_REPORT, HYB_COVERAGE, SOURMASH_SKETCH, flexAMR:LONG:NANOPLOT, FORMAT_RES, flexAMR:DOCX_REPORT_CREATION, DOCX_REPORT_CREATION, flexAMR:AMR:SOURMASH_SKETCH, flexAMR:AMR:RGI, flexAMR:LONG:DRAGONFLYE, RGI_FORMAT, REPORT_GENERATION, DEPTH, BANDAGE_IMAGE
+Mar-02 19:40:34.370 [main] WARN  nextflow.Session - There's no process matching config selector: MASH_SCREEN
+Mar-02 19:40:34.371 [main] WARN  nextflow.Session - There's no process matching config selector: CUSTOM_DUMPSOFTWAREVERSIONS
+Mar-02 19:40:34.373 [main] DEBUG nextflow.Session - Igniting dataflow network (28)
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:NANOPLOT
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:NANOSTAT
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:CENTRIFUGE_LONG
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:DRAGONFLYE
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:HOMOPOLISH
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:ASSEMBLY_HEADER_FORMAT
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:QUAST
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:DEPTH
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:QUALIMAP_BAMQC
+Mar-02 19:40:34.386 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:BANDAGE_IMAGE
+Mar-02 19:40:34.387 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:LONG:MULTIQC
+Mar-02 19:40:34.387 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:MLST
+Mar-02 19:40:34.387 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:SOURMASH_SKETCH
+Mar-02 19:40:34.387 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:SOURMASH_GATHER
+Mar-02 19:40:34.387 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:CHECKM_LINEAGEWF
+Mar-02 19:40:34.387 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:BAKTA
+Mar-02 19:40:34.387 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:PLATON
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:RGI
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:BLDB_SEARCH
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:RGI_FORMAT
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:FORMAT_RES
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:INDIVIDUAL_REPORT
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:AMR:INDIVIDUAL_DOCX_REPORT
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:MERGE_RESISTANCE
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:REPORT_GENERATION
+Mar-02 19:40:34.388 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > flexAMR:DOCX_REPORT_CREATION
+Mar-02 19:40:34.389 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_5e1018a711953868: /home/mgeramim/first_step/MASRES/modules/local/RGI_FORMAT.nf
+  Script_d395066a6e113348: /home/mgeramim/first_step/MASRES/modules/local/SOURMASH_GATHER.nf
+  Script_d65f9bc7e523ad1e: /home/mgeramim/first_step/MASRES/modules/local/DOCX_REPORT_CREATION.nf
+  Script_ac0e00b8ca50d9e0: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/qualimap/bamqc/main.nf
+  Script_46d93336361fd05e: /home/mgeramim/first_step/MASRES/subworkflows/SHORT.nf
+  Script_5bbed62c6ceac2a3: /home/mgeramim/first_step/MASRES/modules/local/BLAST_SEARCH_BLDB.nf
+  Script_5de99e37f6c9f732: /home/mgeramim/first_step/MASRES/modules/local/ASSEMBLY_HEADER_FORMAT.nf
+  Script_746fad323e0129a1: /home/mgeramim/first_step/MASRES/modules/local/CENTRIFUGE_LONG.nf
+  Script_f0514f013e38ce87: /home/mgeramim/first_step/MASRES/main.nf
+  Script_bc98a30eeac6f4d7: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/multiqc/main.nf
+  Script_45772c46657ab3d8: /home/mgeramim/first_step/MASRES/subworkflows/HYBRID.nf
+  Script_80b8512d4ca6ca09: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/fastqc/main.nf
+  Script_984ac34d7a1c1f1a: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/unicycler/main.nf
+  Script_5be8dc0d928af5c4: /home/mgeramim/first_step/MASRES/modules/local/RGI.nf
+  Script_17e11734195fd663: /home/mgeramim/first_step/MASRES/workflows/flexAMR.nf
+  Script_fd9bb3532fcf6d82: /home/mgeramim/first_step/MASRES/subworkflows/input_check.nf
+  Script_1bb5743aa8c56876: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/sourmash/sketch/main.nf
+  Script_166d6f511b43e9e6: /home/mgeramim/first_step/MASRES/subworkflows/LONG.nf
+  Script_66fc2756dae58f6f: /home/mgeramim/first_step/MASRES/modules/local/QUAST.nf
+  Script_4c78ad1ff95f3477: /home/mgeramim/first_step/MASRES/modules/local/MERGE_RESISTANCE.nf
+  Script_3aae3c9b2dfa28ca: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/checkm/lineagewf/main.nf
+  Script_94b1f388cfea3660: /home/mgeramim/first_step/MASRES/modules/local/HYB_COV.nf
+  Script_ce3ac2b3b5a3835a: /home/mgeramim/first_step/MASRES/modules/local/PLATON.nf
+  Script_1b69899adf8e049d: /home/mgeramim/first_step/MASRES/modules/local/DEPTH.nf
+  Script_773b4db8bccc6e9f: /home/mgeramim/first_step/MASRES/modules/local/INDIVIDUAL_DOCX_REPORT.nf
+  Script_8a556317df4842d7: /home/mgeramim/first_step/MASRES/modules/local/POLYPOLISH.nf
+  Script_a27a2bf4e74cfca2: /home/mgeramim/first_step/MASRES/modules/local/REPORT_GENERATION.nf
+  Script_23f5d0183e44f752: /home/mgeramim/first_step/MASRES/subworkflows/AMR.nf
+  Script_390fe27efb8c286b: /home/mgeramim/first_step/MASRES/modules/local/INDIVIDUAL_REPORT.nf
+  Script_7cfd06583aab9d54: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/fastp/main.nf
+  Script_d321fe7b3e5bee07: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/mlst/main.nf
+  Script_0989b4289b338d98: /home/mgeramim/first_step/MASRES/modules/local/NANOPLOT.nf
+  Script_411a4f1bbe8d2f17: /home/mgeramim/first_step/MASRES/modules/local/NANOSTAT.nf
+  Script_6d30b3a0b0e5ec5d: /home/mgeramim/first_step/MASRES/modules/local/BANDAGE_IMAGE.nf
+  Script_0c2c33131a93cc7c: /home/mgeramim/first_step/MASRES/modules/local/BWA.nf
+  Script_bc96e4635a7673a2: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/dragonflye/main.nf
+  Script_761edab4bb9ebae7: /home/mgeramim/first_step/MASRES/modules/local/FORMAT_RES.nf
+  Script_794ab198a4995efb: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/centrifuge/centrifuge/main.nf
+  Script_e8f82dbbbb54d8f0: /home/mgeramim/first_step/MASRES/modules/local/HOMOPOLISH.nf
+  Script_0a1e2223703351ce: /home/mgeramim/first_step/MASRES/modules/nf-core/modules/bakta/main.nf
+Mar-02 19:40:34.389 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Mar-02 19:40:34.389 [main] DEBUG nextflow.Session - Session await
+Mar-02 19:40:34.430 [Actor Thread 12] WARN  nextflow.container.SingularityCache - Singularity cache directory has not been defined -- Remote image will be stored in the path: /home/mgeramim/first_step/MASRES/work/singularity -- Use the environment variable NXF_SINGULARITY_CACHEDIR to specify a different location
+Mar-02 19:40:34.430 [Actor Thread 13] INFO  nextflow.container.SingularityCache - Pulling Singularity image https://depot.galaxyproject.org/singularity/centrifuge:1.0.4_beta--h9a82719_6 [cache /home/mgeramim/first_step/MASRES/work/singularity/depot.galaxyproject.org-singularity-centrifuge-1.0.4_beta--h9a82719_6.img]
+Mar-02 19:40:34.430 [Actor Thread 12] INFO  nextflow.container.SingularityCache - Pulling Singularity image https://depot.galaxyproject.org/singularity/dragonflye:1.0.11--hdfd78af_0 [cache /home/mgeramim/first_step/MASRES/work/singularity/depot.galaxyproject.org-singularity-dragonflye-1.0.11--hdfd78af_0.img]
+Mar-02 19:40:34.441 [Actor Thread 3] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=flexAMR:LONG:CENTRIFUGE_LONG (1); work-dir=null
+  error [java.lang.IllegalStateException]: java.lang.IllegalStateException: Failed to pull singularity image
+  command: singularity pull  --name depot.galaxyproject.org-singularity-centrifuge-1.0.4_beta--h9a82719_6.img.pulling.1772476834430 https://depot.galaxyproject.org/singularity/centrifuge:1.0.4_beta--h9a82719_6 > /dev/null
+  status : 255
+  hint   : Try and increase singularity.pullTimeout in the config (current is "20m")
+  message:
+    ERROR: pull is only supported for shub URIs
+
+Mar-02 19:40:34.441 [Actor Thread 4] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=flexAMR:LONG:DRAGONFLYE (1); work-dir=null
+  error [java.lang.IllegalStateException]: java.lang.IllegalStateException: Failed to pull singularity image
+  command: singularity pull  --name depot.galaxyproject.org-singularity-dragonflye-1.0.11--hdfd78af_0.img.pulling.1772476834430 https://depot.galaxyproject.org/singularity/dragonflye:1.0.11--hdfd78af_0 > /dev/null
+  status : 255
+  hint   : Try and increase singularity.pullTimeout in the config (current is "20m")
+  message:
+    ERROR: pull is only supported for shub URIs
+
+Mar-02 19:40:34.443 [Actor Thread 11] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=flexAMR:LONG:CENTRIFUGE_LONG; work-dir=null
+  error [java.lang.InterruptedException]: java.lang.InterruptedException
+Mar-02 19:40:34.449 [Actor Thread 4] ERROR nextflow.processor.TaskProcessor - Error executing process > 'flexAMR:LONG:DRAGONFLYE (1)'
+
+Caused by:
+  Failed to pull singularity image
+    command: singularity pull  --name depot.galaxyproject.org-singularity-dragonflye-1.0.11--hdfd78af_0.img.pulling.1772476834430 https://depot.galaxyproject.org/singularity/dragonflye:1.0.11--hdfd78af_0 > /dev/null
+    status : 255
+    hint   : Try and increase singularity.pullTimeout in the config (current is "20m")
+    message:
+      ERROR: pull is only supported for shub URIs
+
+
+java.lang.IllegalStateException: java.lang.IllegalStateException: Failed to pull singularity image
+  command: singularity pull  --name depot.galaxyproject.org-singularity-dragonflye-1.0.11--hdfd78af_0.img.pulling.1772476834430 https://depot.galaxyproject.org/singularity/dragonflye:1.0.11--hdfd78af_0 > /dev/null
+  status : 255
+  hint   : Try and increase singularity.pullTimeout in the config (current is "20m")
+  message:
+    ERROR: pull is only supported for shub URIs
+
+	at nextflow.container.SingularityCache.getCachePathFor(SingularityCache.groovy:354)
+	at nextflow.container.ContainerHandler.createSingularityCache(ContainerHandler.groovy:105)
+	at nextflow.container.ContainerHandler.normalizeImageName(ContainerHandler.groovy:72)
+	at nextflow.container.resolver.DefaultContainerResolver.resolveImage0(DefaultContainerResolver.groovy:68)
+	at nextflow.container.resolver.DefaultContainerResolver.resolveImage(DefaultContainerResolver.groovy:61)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.processor.TaskRun.containerInfo0(TaskRun.groovy:722)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:343)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:328)
+	at groovy.lang.MetaClassImpl.doInvokeMethod(MetaClassImpl.java:1339)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1094)
+	at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnCurrentN(ScriptBytecodeAdapter.java:97)
+	at nextflow.processor.TaskRun.this$dist$invoke$1(TaskRun.groovy)
+	at nextflow.processor.TaskRun$3.methodMissing(TaskRun.groovy)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:343)
+	at groovy.lang.MetaClassImpl.invokeMissingMethod(MetaClassImpl.java:924)
+	at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1419)
+	at groovy.lang.MetaClassImpl.doInvokeMethod(MetaClassImpl.java:1341)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1094)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1007)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.processor.TaskRun$3.apply(TaskRun.groovy:703)
+	at nextflow.processor.TaskRun$3.apply(TaskRun.groovy)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.processor.TaskRun.containerInfo(TaskRun.groovy:700)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.processor.TaskRun.getContainer(TaskRun.groovy:734)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.processor.TaskRun.isContainerEnabled(TaskRun.groovy:800)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.processor.TaskProcessor.createTaskHashKey(TaskProcessor.groovy:2031)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.processor.TaskProcessor.invokeTask(TaskProcessor.groovy:687)
+	at nextflow.processor.InvokeTaskAdapter.call(InvokeTaskAdapter.groovy:52)
+	at groovyx.gpars.dataflow.operator.DataflowOperatorActor.startTask(DataflowOperatorActor.java:120)
+	at groovyx.gpars.dataflow.operator.ForkingDataflowOperatorActor.access$001(ForkingDataflowOperatorActor.java:35)
+	at groovyx.gpars.dataflow.operator.ForkingDataflowOperatorActor$1.run(ForkingDataflowOperatorActor.java:58)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.lang.IllegalStateException: Failed to pull singularity image
+  command: singularity pull  --name depot.galaxyproject.org-singularity-dragonflye-1.0.11--hdfd78af_0.img.pulling.1772476834430 https://depot.galaxyproject.org/singularity/dragonflye:1.0.11--hdfd78af_0 > /dev/null
+  status : 255
+  hint   : Try and increase singularity.pullTimeout in the config (current is "20m")
+  message:
+    ERROR: pull is only supported for shub URIs
+
+	at nextflow.container.SingularityCache.runCommand(SingularityCache.groovy:306)
+	at nextflow.container.SingularityCache.downloadContainerImage0(SingularityCache.groovy:273)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:343)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:328)
+	at groovy.lang.MetaClassImpl.doInvokeMethod(MetaClassImpl.java:1339)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1094)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1007)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:645)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:628)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:82)
+	at nextflow.container.SingularityCache$_downloadContainerImage_closure1.doCall(SingularityCache.groovy:241)
+	at nextflow.container.SingularityCache$_downloadContainerImage_closure1.call(SingularityCache.groovy)
+	at nextflow.file.FileMutex.lock(FileMutex.groovy:106)
+	at nextflow.container.SingularityCache.downloadContainerImage(SingularityCache.groovy:241)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:343)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:328)
+	at groovy.lang.MetaClassImpl.doInvokeMethod(MetaClassImpl.java:1339)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1094)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1007)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:645)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:628)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:82)
+	at nextflow.container.SingularityCache$_getLazyImagePath_closure2.doCall(SingularityCache.groovy:331)
+	at nextflow.container.SingularityCache$_getLazyImagePath_closure2.call(SingularityCache.groovy)
+	at groovyx.gpars.dataflow.LazyDataflowVariable$1.run(LazyDataflowVariable.java:70)
+	... 3 common frames omitted
+Mar-02 19:40:34.453 [Actor Thread 4] DEBUG nextflow.Session - Session aborted -- Cause: java.lang.IllegalStateException: Failed to pull singularity image
+  command: singularity pull  --name depot.galaxyproject.org-singularity-dragonflye-1.0.11--hdfd78af_0.img.pulling.1772476834430 https://depot.galaxyproject.org/singularity/dragonflye:1.0.11--hdfd78af_0 > /dev/null
+  status : 255
+  hint   : Try and increase singularity.pullTimeout in the config (current is "20m")
+  message:
+    ERROR: pull is only supported for shub URIs
+
+Mar-02 19:40:34.468 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+Mar-02 19:40:34.474 [Actor Thread 4] DEBUG nextflow.Session - The following nodes are still active:
+[process] flexAMR:LONG:DRAGONFLYE
+  status=ACTIVE
+  port 0: (queue) closed; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:LONG:HOMOPOLISH
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: db
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:LONG:ASSEMBLY_HEADER_FORMAT
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:LONG:QUAST
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: gff
+  port 2: (value) bound ; channel: use_fasta
+  port 3: (value) bound ; channel: use_gff
+  port 4: (cntrl) -     ; channel: $
+
+[process] flexAMR:LONG:DEPTH
+  status=ACTIVE
+  port 0: (value) bound ; channel: mode
+  port 1: (queue) OPEN  ; channel: -
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:LONG:QUALIMAP_BAMQC
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: gff
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:LONG:BANDAGE_IMAGE
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:LONG:MULTIQC
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: multiqc_files
+  port 1: (value) bound ; channel: -
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:MLST
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:SOURMASH_SKETCH
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:SOURMASH_GATHER
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: sketch_db
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:CHECKM_LINEAGEWF
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: fasta_ext
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:BAKTA
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: db
+  port 2: (value) bound ; channel: proteins
+  port 3: (value) bound ; channel: prodigal_tf
+  port 4: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:PLATON
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: db
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:RGI
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:BLDB_SEARCH
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: BLDB_DB
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:RGI_FORMAT
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:FORMAT_RES
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: BLDB_db
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:INDIVIDUAL_REPORT
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] flexAMR:AMR:INDIVIDUAL_DOCX_REPORT
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (value) bound ; channel: docx_reference
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:MERGE_RESISTANCE
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: tsv_files_merged
+  port 1: (value) OPEN  ; channel: mlst_files
+  port 2: (cntrl) -     ; channel: $
+
+[process] flexAMR:REPORT_GENERATION
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: mlst_file
+  port 1: (value) OPEN  ; channel: rgi_bldb_files
+  port 2: (value) OPEN  ; channel: mash_files
+  port 3: (value) OPEN  ; channel: plasmid_files
+  port 4: (cntrl) -     ; channel: $
+
+[process] flexAMR:DOCX_REPORT_CREATION
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: rst_report
+  port 1: (value) bound ; channel: docx_reference
+  port 2: (cntrl) -     ; channel: $
+
+Mar-02 19:40:34.480 [Actor Thread 4] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=0; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=2; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=0ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=0; peakCpus=0; peakMemory=0; ]
+Mar-02 19:40:34.664 [main] DEBUG nextflow.Session - Session await > all processes finished
+Mar-02 19:40:34.664 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-02 19:40:34.664 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=0; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=2; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=0ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=0; peakCpus=0; peakMemory=0; ]
+Mar-02 19:40:34.665 [Actor Thread 9] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=flexAMR:LONG:DRAGONFLYE; work-dir=null
+  error [java.lang.InterruptedException]: java.lang.InterruptedException
+Mar-02 19:40:34.667 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Mar-02 19:40:34.679 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

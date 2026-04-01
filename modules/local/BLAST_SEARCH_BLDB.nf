@@ -15,7 +15,10 @@ process BLDB_SEARCH {
         script:
 	BLDB_out= "BLDB_${meta.id}_raw.tsv"
         """
-        ssearch36 -T ${task.cpus} -m 8 -b 10 -d 0 -E 1e-5 ${annotated_proteins} ${BLDB_DB} -z 1 > ${BLDB_out}
+        # Unzip the database to a temporary uncompressed file
+        gunzip -c ${BLDB_DB} > uncompressed_BLDB.fasta
+
+        ssearch36 -T ${task.cpus} -m 8 -b 10 -d 0 -E 1e-5 ${annotated_proteins} uncompressed_BLDB.fasta -z 1 > ${BLDB_out}
         """
 }
 

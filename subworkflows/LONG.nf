@@ -36,7 +36,10 @@ workflow LONG {
 	
 	// Subsampling, read filtering, assembly and Medaka polishing with Dragonflye
 
-	DRAGONFLYE(input_files)
+	input_files.map{ meta, reads -> tuple(meta, reads, false) }
+		.set{ ch_dagonflye }
+
+	DRAGONFLYE(ch_dagonflye)
 
 	// Second round homologous polishing with Homopolish
 	

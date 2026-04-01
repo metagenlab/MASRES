@@ -1,4 +1,4 @@
-#!/opt/conda/envs/python-r/bin/python
+#!/usr/bin/env python
 import argparse
 import os
 from typing import NamedTuple

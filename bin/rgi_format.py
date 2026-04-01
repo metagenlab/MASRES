@@ -1,4 +1,4 @@
-#!/opt/conda/envs/python-r/bin/python
+#!/usr/bin/env python
 import argparse
 from ast import Str
 import os
